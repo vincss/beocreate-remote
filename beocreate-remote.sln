@@ -5,9 +5,15 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeocreateRemote", "BeocreateRemote\BeocreateRemote.csproj", "{FCAB7854-0235-44F8-A7A1-FDC1CD0A610F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeocreateRemote.Core", "BeocreateRemote.Core\BeocreateRemote.Core.csproj", "{13717105-B070-45DB-BE7E-5C8C14BBD8E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeocreateRemote.Core", "BeocreateRemote.Core\BeocreateRemote.Core.csproj", "{13717105-B070-45DB-BE7E-5C8C14BBD8E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeocreateRemote.Core.Test", "BeocreateRemote.Core.Test\BeocreateRemote.Core.Test.csproj", "{3DC40824-3BF1-4D9D-B582-2F039852107B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeocreateRemote.Core.Test", "BeocreateRemote.Core.Test\BeocreateRemote.Core.Test.csproj", "{3DC40824-3BF1-4D9D-B582-2F039852107B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{697CFD00-27FC-4A38-94B1-0728D2F94C86}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
