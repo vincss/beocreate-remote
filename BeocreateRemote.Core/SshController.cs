@@ -1,4 +1,5 @@
 ﻿using Renci.SshNet;
+using System.Diagnostics;
 
 namespace BeocreateRemote.Core
 {
@@ -12,9 +13,11 @@ namespace BeocreateRemote.Core
             _sshClient = new SshClient(address, user, password);
         }
 
-        private void checkConnection() { 
-            
-           if(!_sshClient.IsConnected) { 
+        private void checkConnection()
+        {
+
+            if (!_sshClient.IsConnected)
+            {
                 _sshClient.Connect();
             }
         }
@@ -23,7 +26,20 @@ namespace BeocreateRemote.Core
         {
             checkConnection();
             var result = _sshClient.RunCommand("dsptoolkit mute");
-            Console.WriteLine(result);
+            Debug.WriteLine(result);
+        }
+        public void unmute()
+        {
+            checkConnection();
+            var result = _sshClient.RunCommand("dsptoolkit unmute");
+            Debug.WriteLine(result);
+        }
+
+        public int getTemperature()
+        {
+            checkConnection();
+            var result = _sshClient.RunCommand("cat /sys/class/thermal/thermal_zone0/temp");
+            return (int.Parse(result.Result) / 1000);
         }
     }
 }
