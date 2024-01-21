@@ -1,7 +1,4 @@
-﻿using BeocreateRemote.Core;
-using BeocreateRemote.ViewModel;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
+﻿using BeocreateRemote.ViewModel;
 
 namespace BeocreateRemote
 {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BeocreateRemote.Core.mock
+﻿namespace BeocreateRemote.Core.mock
 {
     public class OsmcMock : IRemoteController
     {

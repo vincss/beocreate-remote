@@ -1,11 +1,6 @@
 ﻿using BeocreateRemote.Core;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BeocreateRemote.ViewModel
 {
@@ -18,26 +13,26 @@ namespace BeocreateRemote.ViewModel
 
         public MainViewModel(IRemoteController remoteController)
         {
-            this.sshController = remoteController;
+            sshController = remoteController;
             temperature = remoteController.GetTemperature();
         }
 
         [RelayCommand]
         void Mute()
         {
-            this.sshController.Mute();
+            sshController.Mute();
         }
 
         [RelayCommand]
         void Unmute()
         {
-            this.sshController.Unmute();
+            sshController.Unmute();
         }
 
         [RelayCommand]
         void Refresh()
         {
-            this.Temperature = this.sshController.GetTemperature();
+            Temperature = sshController.GetTemperature();
         }
     }
 }

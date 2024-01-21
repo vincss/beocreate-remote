@@ -3,7 +3,6 @@ using BeocreateRemote.Core;
 using BeocreateRemote.Core.mock;
 using BeocreateRemote.ViewModel;
 using Microsoft.Extensions.Logging;
-using Renci.SshNet;
 
 namespace BeocreateRemote
 {
