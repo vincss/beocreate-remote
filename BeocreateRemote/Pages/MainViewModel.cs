@@ -14,30 +14,30 @@ namespace BeocreateRemote.ViewModel
         [ObservableProperty]
         int temperature;
 
-        private readonly SshController sshController;
+        private readonly IRemoteController sshController;
 
-        public MainViewModel(SshController sshController)
+        public MainViewModel(IRemoteController remoteController)
         {
-            this.sshController = sshController;
-            temperature = sshController.getTemperature();
+            this.sshController = remoteController;
+            temperature = remoteController.GetTemperature();
         }
 
         [RelayCommand]
         void Mute()
         {
-            this.sshController.mute();
+            this.sshController.Mute();
         }
 
         [RelayCommand]
         void Unmute()
         {
-            this.sshController.unmute();
+            this.sshController.Unmute();
         }
 
         [RelayCommand]
         void Refresh()
         {
-            this.Temperature = this.sshController.getTemperature();
+            this.Temperature = this.sshController.GetTemperature();
         }
     }
 }

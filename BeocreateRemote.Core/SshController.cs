@@ -8,12 +8,12 @@ namespace BeocreateRemote.Core
     {
         private readonly SshClient _sshClient;
 
-        public SshController(String address, String user, String password)
+        public SshController(string address, string user, string password)
         {
             _sshClient = new SshClient(address, user, password);
         }
 
-        private void checkConnection()
+        private void CheckConnection()
         {
 
             if (!_sshClient.IsConnected)
@@ -22,24 +22,45 @@ namespace BeocreateRemote.Core
             }
         }
 
-        public void mute()
+        public void Mute()
         {
-            checkConnection();
+            CheckConnection();
             var result = _sshClient.RunCommand("dsptoolkit mute");
             Debug.WriteLine(result);
         }
-        public void unmute()
+        public void Unmute()
         {
-            checkConnection();
+            CheckConnection();
             var result = _sshClient.RunCommand("dsptoolkit unmute");
             Debug.WriteLine(result);
         }
 
-        public int getTemperature()
+        public int GetTemperature()
         {
-            checkConnection();
+            CheckConnection();
             var result = _sshClient.RunCommand("cat /sys/class/thermal/thermal_zone0/temp");
             return (int.Parse(result.Result) / 1000);
         }
+
+        public double Volume
+        {
+            get
+            {
+
+                CheckConnection();
+                var result = _sshClient.RunCommand("dsptoolkit get-volume");
+                Debug.WriteLine(result);
+                return 0; // ToDo Parsing
+            }
+            set
+            {
+
+                CheckConnection();
+                var result = _sshClient.RunCommand("dsptoolkit set-volume " + value);
+                Debug.WriteLine(result);
+            }
+        }
+
+
     }
 }

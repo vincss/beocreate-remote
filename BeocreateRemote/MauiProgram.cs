@@ -1,4 +1,6 @@
-﻿using BeocreateRemote.Core;
+﻿using BeocreateRemote.Content;
+using BeocreateRemote.Core;
+using BeocreateRemote.Core.mock;
 using BeocreateRemote.ViewModel;
 using Microsoft.Extensions.Logging;
 using Renci.SshNet;
@@ -18,8 +20,10 @@ namespace BeocreateRemote
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<SshController>(new SshController("192.168.0.4", "root", "hifiberry"));
-            
+            //builder.Services.AddSingleton<IRemoteController>(new SshController("192.168.0.4", "root", "hifiberry"));
+            builder.Services.AddSingleton<IRemoteController>(new OsmcMock());
+
+            builder.Services.AddSingleton<AudioView>();
 
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
