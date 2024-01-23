@@ -13,7 +13,7 @@
 
 
     <VerticalStackLayout>
-        <Slider Value="{Binding Volume}" />
+        <Slider Value="{Binding Volume}" Minimum="0" Maximum="100" />
         <Label Text="{Binding Volume, Converter={StaticResource volumeToStringConverter}}"/>
         <Button Command="{Binding MuteOnOffCommand}" Text="Mute On/Off"></Button>
     </VerticalStackLayout>

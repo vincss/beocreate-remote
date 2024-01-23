@@ -8,7 +8,7 @@ namespace BeocreateRemote.Core.Test
         {
             var controller = new SshController("192.168.0.4", "root", "hifiberry");
             controller.Unmute();
-            var temp = controller.GetTemperature ();
+            var temp = controller.GetTemperature();
         }
     }
 }
