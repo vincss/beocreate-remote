@@ -68,13 +68,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Content\AudioView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Content\SystemView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Pages\BeocreatePage.xaml">
+	  <Compile Update="Pages\AudioControlPage.xaml.cs">
+	    <DependentUpon>AudioControlPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\AudioControlPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

@@ -1,14 +1,12 @@
 ﻿using System.Diagnostics;
 using System.Globalization;
 
-namespace BeocreateRemote.Content
+namespace BeocreateRemote.Helper
 {
     public class VolumeToStringConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            Debug.WriteLine("VolumeToStringConverter", value);
-
             if (value == null) { return "🔇"; }
             return $"{(int)(double.Parse((string)value) * 100)} %";
         }

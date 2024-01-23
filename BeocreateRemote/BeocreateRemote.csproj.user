@@ -14,13 +14,7 @@
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
   <ItemGroup>
-    <MauiXaml Update="Content\AudioView.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="Content\SystemView.xaml">
-      <SubType>Designer</SubType>
-    </MauiXaml>
-    <MauiXaml Update="Pages\BeocreatePage.xaml">
+    <MauiXaml Update="Pages\AudioControlPage.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
   </ItemGroup>

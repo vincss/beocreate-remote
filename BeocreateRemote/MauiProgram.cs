@@ -1,7 +1,6 @@
-﻿using BeocreateRemote.Content;
-using BeocreateRemote.Core;
+﻿using BeocreateRemote.Core;
 using BeocreateRemote.Core.mock;
-using BeocreateRemote.ViewModel;
+using BeocreateRemote.Pages;
 using Microsoft.Extensions.Logging;
 
 namespace BeocreateRemote
@@ -22,7 +21,8 @@ namespace BeocreateRemote
             //builder.Services.AddSingleton<IRemoteController>(new SshController("192.168.0.4", "root", "hifiberry"));
             builder.Services.AddSingleton<IRemoteController>(new OsmcMock());
 
-            builder.Services.AddSingleton<AudioView>();
+            builder.Services.AddSingleton<AudioControlViewModel>();
+            builder.Services.AddSingleton<AudioVolumePage>();
 
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();

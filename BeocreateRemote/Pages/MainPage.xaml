@@ -2,15 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BeocreateRemote.MainPage"
-             xmlns:content="clr-namespace:BeocreateRemote.Content"
-             xmlns:viewmodel="clr-namespace:BeocreateRemote.ViewModel"
-             x:DataType="viewmodel:MainViewModel">
+             xmlns:pages="clr-namespace:BeocreateRemote.Pages"
+             x:DataType="pages:MainViewModel">
 
     <ScrollView>
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
+            <Label Text="--- The Start ---" />
 
+            <Button Text="Audio Control" Command="{Binding NavigateToAudioControlCommand}"></Button>
+            
             <Label Text="{Binding Temperature}" />
             <Button 
                 Text="Refresh"
@@ -24,8 +26,7 @@
                 Text="Unmute"
                 Command="{Binding UnmuteCommand}"
             />
-            <content:AudioView></content:AudioView>
-            <Label Text="The End" />
+            <Label Text="--- The End ---" />
         </VerticalStackLayout>
 
     </ScrollView>

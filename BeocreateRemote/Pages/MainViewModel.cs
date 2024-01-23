@@ -2,7 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
-namespace BeocreateRemote.ViewModel
+namespace BeocreateRemote.Pages
 {
     public partial class MainViewModel : ObservableObject
     {
@@ -33,6 +33,12 @@ namespace BeocreateRemote.ViewModel
         void Refresh()
         {
             Temperature = sshController.GetTemperature();
+        }
+
+        [RelayCommand]
+        void NavigateToAudioControl()
+        {
+            Shell.Current.GoToAsync($"{nameof(AudioVolumePage)}");
         }
     }
 }
