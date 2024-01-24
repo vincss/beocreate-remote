@@ -22,14 +22,14 @@ namespace BeocreateRemote.Pages
             get
             {
                 var volume = VolumeToStringConverter.Convert(this.remoteController.Volume);
-                Debug.WriteLine("Volume get" + volume);
+                Debug.WriteLine("Volume get " + volume);
                 return volume;
             }
             set
             {
                 if (value == null) return;
                 var volume = VolumeToStringConverter.ConvertBack(value);
-                Debug.WriteLine("Volume set" + volume);
+                Debug.WriteLine("Volume set " + volume);
 
                 this.remoteController.Volume = volume;
                 OnPropertyChanged(nameof(Volume));

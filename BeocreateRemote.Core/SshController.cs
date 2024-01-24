@@ -49,18 +49,24 @@ namespace BeocreateRemote.Core
 
                 CheckConnection();
                 var result = _sshClient.RunCommand("dsptoolkit get-volume");
-                Debug.WriteLine(result);
-                return 0; // ToDo Parsing
+                Debug.WriteLine("Ssh get " + result.Result);
+                return ConvertVolume(result.Result);
             }
             set
             {
 
                 CheckConnection();
-                var result = _sshClient.RunCommand("dsptoolkit set-volume " + value);
-                Debug.WriteLine(result);
+                var result = _sshClient.RunCommand("dsptoolkit set-volume " + value.ToString().Replace(',', '.'));
+                Debug.WriteLine("Ssh setVolume " + result.Result);
             }
         }
 
+        public static double ConvertVolume(String volume)
+        {
+            var fragment = volume.Split(' ')[1].Replace('.', ',');
+            Debug.WriteLine("fargment " + fragment);
+            return double.Parse(fragment);
 
+        }
     }
 }
