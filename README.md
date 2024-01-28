@@ -2,6 +2,16 @@
 beocreate-remote
 
 # ToDo
+- UI
+    - Vertical Slider
+    - Icon button ( + / - / OnOff )
+    - Color
+- Configuration
+- Audio at Launch ?
+- CI
+    - https://thewissen.io/making-maui-cd-pipeline/
+    - https://blog.taranissoftware.com/build-net-maui-apps-with-github-actions 
+
 
 # Info 
 dotnet build -f net8.0-android34.0

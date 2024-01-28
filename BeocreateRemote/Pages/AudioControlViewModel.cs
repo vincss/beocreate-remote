@@ -38,7 +38,7 @@ namespace BeocreateRemote.Pages
         }
 
         [RelayCommand]
-        public void MuteOnOff()
+        public Task MuteOnOff()
         {
 
             if (_muted == true)
@@ -51,24 +51,26 @@ namespace BeocreateRemote.Pages
                 remoteController.Mute();
                 _muted = true;
             }
-
+            return Task.CompletedTask;
         }
 
         [RelayCommand]
-        public void VolumeDecrease()
+        public Task VolumeDecrease()
         {
-            if (Volume == null) return;
+            if (Volume == null) return Task.CompletedTask;
 
             Volume = (int.Parse(Volume) - _increment).ToString();
+            return Task.CompletedTask;
         }
 
 
         [RelayCommand]
-        public void VolumeIncrease()
+        public Task VolumeIncrease()
         {
-            if (Volume == null) return;
+            if (Volume == null) return Task.CompletedTask; ;
 
             Volume = (int.Parse(Volume) + _increment).ToString();
+            return Task.CompletedTask;
         }
     }
 }

@@ -22,7 +22,6 @@ namespace BeocreateRemote.Core
 
         private void CheckConnection()
         {
-
             if (!_sshClient.IsConnected)
             {
                 _sshClient.Connect();
