@@ -4,12 +4,12 @@
     {
         public OsmcMock()
         {
-            Volume = 0.33;
+            Volume = 33;
             _mute = false;
         }
 
         private bool _mute;
-        public double Volume { get; set; }
+        public int Volume { get; set; }
 
         public int GetTemperature()
         {

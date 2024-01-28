@@ -1,14 +1,16 @@
-﻿using System.Diagnostics;
-using System.Globalization;
+﻿using System.Globalization;
 
 namespace BeocreateRemote.Helper
 {
     public class VolumeToStringConverter : IValueConverter
     {
+        private static readonly int VolumeMax = 100;
+        private static readonly int VolumeMin = 0;
+
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (value == null) { return "🔇"; }
-            Debug.WriteLine("Converter: " + value);
+            //Debug.WriteLine("Converter: " + value);
             return $"{value} %";
         }
 
@@ -17,14 +19,16 @@ namespace BeocreateRemote.Helper
             throw new NotImplementedException();
         }
 
-        public static string Convert(double volume)
+        public static string Convert(int volume)
         {
-            return ((int)(volume * 100)).ToString();
+            return volume.ToString();
         }
 
-        public static double ConvertBack(string volume)
+        public static int ConvertBack(string volume)
         {
-            return double.Parse(volume) / 100;
+            var value = double.Parse(volume);
+            if (value > VolumeMax) { value = VolumeMax; } else if (value < VolumeMin) { value = VolumeMin; }
+            return (int)value;
         }
     }
 }
