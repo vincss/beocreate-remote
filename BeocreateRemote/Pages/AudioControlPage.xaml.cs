@@ -7,11 +7,11 @@ using Android.Views;
 
 namespace BeocreateRemote.Pages;
 
-public partial class AudioVolumePage : ContentPage, IOnPageKeyDown
+public partial class AudioControlPage : ContentPage, IOnPageKeyDown
 {
     private readonly AudioControlViewModel audioVolumeViewModel;
 
-    public AudioVolumePage(AudioControlViewModel audioVolumeViewModel)
+    public AudioControlPage(AudioControlViewModel audioVolumeViewModel)
     {
         InitializeComponent();
         BindingContext = audioVolumeViewModel;

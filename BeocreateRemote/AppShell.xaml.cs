@@ -1,4 +1,5 @@
-﻿using BeocreateRemote.Pages;
+﻿using BeocreateRemote.Model;
+using BeocreateRemote.Pages;
 
 namespace BeocreateRemote
 {
@@ -8,7 +9,11 @@ namespace BeocreateRemote
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(AudioVolumePage), typeof(AudioVolumePage));
+            Routing.RegisterRoute(nameof(ConfigurationPage), typeof(ConfigurationPage));
+            Routing.RegisterRoute(nameof(AudioControlPage), typeof(AudioControlPage));
+
+
         }
+
     }
 }

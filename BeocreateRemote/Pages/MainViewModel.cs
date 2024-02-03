@@ -18,18 +18,6 @@ namespace BeocreateRemote.Pages
         }
 
         [RelayCommand]
-        void Mute()
-        {
-            sshController.Mute();
-        }
-
-        [RelayCommand]
-        void Unmute()
-        {
-            sshController.Unmute();
-        }
-
-        [RelayCommand]
         void Refresh()
         {
             Temperature = sshController.GetTemperature();
@@ -38,7 +26,13 @@ namespace BeocreateRemote.Pages
         [RelayCommand]
         void NavigateToAudioControl()
         {
-            Shell.Current.GoToAsync($"{nameof(AudioVolumePage)}");
+            Shell.Current.GoToAsync($"{nameof(AudioControlPage)}");
+        }
+
+        [RelayCommand]
+        void NavigateToConfiguration()
+        {
+            Shell.Current.GoToAsync($"{nameof(ConfigurationPage)}");
         }
     }
 }

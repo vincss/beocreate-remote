@@ -12,20 +12,14 @@
             <Label Text="--- The Start ---" />
 
             <Button Text="Audio Control" Command="{Binding NavigateToAudioControlCommand}"></Button>
+            <Button Text="Configuration" Command="{Binding NavigateToConfigurationCommand}"></Button>
             
             <Label Text="{Binding Temperature}" />
             <Button 
                 Text="Refresh"
                 Command="{Binding RefreshCommand}"
             />
-            <Button 
-                Text="Mute"
-                Command="{Binding MuteCommand}"
-            />
-            <Button 
-                Text="Unmute"
-                Command="{Binding UnmuteCommand}"
-            />
+
             <Label Text="--- The End ---" />
         </VerticalStackLayout>
 

@@ -1,7 +1,9 @@
 ﻿using BeocreateRemote.Core;
 using BeocreateRemote.Core.mock;
+using BeocreateRemote.Model;
 using BeocreateRemote.Pages;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 
 namespace BeocreateRemote
 {
@@ -16,14 +18,19 @@ namespace BeocreateRemote
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+                })
+                ;
 
+            // ToDo change injection depending on factory ?
             builder.Services.AddSingleton<IRemoteController>(new SshController("192.168.0.4", "osmc", "osmc"));
             //builder.Services.AddSingleton<IRemoteController>(new SshController("192.168.0.4", "root", "hifiberry"));
             //builder.Services.AddSingleton<IRemoteController>(new OsmcMock());
 
+            builder.Services.AddSingleton<ConfigurationViewModel>();
+            builder.Services.AddSingleton<ConfigurationPage>();
+
             builder.Services.AddSingleton<AudioControlViewModel>();
-            builder.Services.AddSingleton<AudioVolumePage>();
+            builder.Services.AddSingleton<AudioControlPage>();
 
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
