@@ -11,8 +11,6 @@ namespace BeocreateRemote
 
             Routing.RegisterRoute(nameof(ConfigurationPage), typeof(ConfigurationPage));
             Routing.RegisterRoute(nameof(AudioControlPage), typeof(AudioControlPage));
-
-
         }
 
     }

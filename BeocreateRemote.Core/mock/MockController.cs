@@ -1,8 +1,8 @@
 ﻿namespace BeocreateRemote.Core.mock
 {
-    public class OsmcMock : IRemoteController
+    public class MockController : IRemoteController
     {
-        public OsmcMock()
+        public MockController()
         {
             Volume = 33;
             _mute = false;
@@ -10,6 +10,8 @@
 
         private bool _mute;
         public int Volume { get; set; }
+
+        public bool IsConnected => true;
 
         public int GetTemperature()
         {

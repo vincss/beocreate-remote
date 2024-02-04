@@ -1,4 +1,4 @@
-﻿using BeocreateRemote.Core;
+﻿using BeocreateRemote.Helper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -9,18 +9,30 @@ namespace BeocreateRemote.Pages
         [ObservableProperty]
         int temperature;
 
-        private readonly IRemoteController sshController;
+        private readonly ControllerContainer controllerContainer;
 
-        public MainViewModel(IRemoteController remoteController)
+        public MainViewModel(ControllerContainer controllerContainer)
         {
-            sshController = remoteController;
-            temperature = remoteController.GetTemperature();
+            this.controllerContainer = controllerContainer;
+
+            temperatureTimer();
         }
+
+        private async void temperatureTimer()
+        {
+            var timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
+
+            while (await timer.WaitForNextTickAsync())
+            {
+                Refresh();
+            }
+        }
+
 
         [RelayCommand]
         void Refresh()
         {
-            Temperature = sshController.GetTemperature();
+            Temperature = controllerContainer.Controller?.GetTemperature() ?? -1;
         }
 
         [RelayCommand]

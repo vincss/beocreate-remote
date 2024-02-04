@@ -1,5 +1,4 @@
-﻿using BeocreateRemote.Core;
-using BeocreateRemote.Helper;
+﻿using BeocreateRemote.Helper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel;
@@ -10,19 +9,19 @@ namespace BeocreateRemote.Pages
     {
         private static readonly double _increment = 1;
 
-        private readonly IRemoteController remoteController;
+        private readonly ControllerContainer controllerContainer;
         bool? _muted;
 
-        public AudioControlViewModel(IRemoteController remoteController)
+        public AudioControlViewModel(ControllerContainer controllerContainer)
         {
-            this.remoteController = remoteController;
+            this.controllerContainer = controllerContainer;
         }
 
         public string? Volume
         {
             get
             {
-                var volume = VolumeToStringConverter.Convert(this.remoteController.Volume);
+                var volume = VolumeToStringConverter.Convert(this.controllerContainer.Controller.Volume);
                 //Debug.WriteLine("Volume get " + volume);
                 return volume;
             }
@@ -32,7 +31,7 @@ namespace BeocreateRemote.Pages
                 var volume = VolumeToStringConverter.ConvertBack(value);
                 //Debug.WriteLine("Volume set " + volume);
 
-                this.remoteController.Volume = volume;
+                this.controllerContainer.Controller.Volume = volume;
                 OnPropertyChanged(nameof(Volume));
             }
         }
@@ -43,12 +42,12 @@ namespace BeocreateRemote.Pages
 
             if (_muted == true)
             {
-                remoteController.Unmute();
+                controllerContainer.Controller.Unmute();
                 _muted = false;
             }
             else
             {
-                remoteController.Mute();
+                controllerContainer.Controller.Mute();
                 _muted = true;
             }
             return Task.CompletedTask;

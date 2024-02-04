@@ -16,7 +16,6 @@ namespace BeocreateRemote.Model
         const string ConfigurationKey = "BeoRemoteConfiguration";
         public RemoteType RemoteType { get; set; }
 
-
         public static void Save(Configuration configuration)
         {
             var configToSave = configuration.SerializeXml();
@@ -31,7 +30,15 @@ namespace BeocreateRemote.Model
                 try
                 {
                     var config = configLoaded.DeserializeXml<Configuration>();
-                    return config;
+                    switch (config.RemoteType)
+                    {
+                        case RemoteType.SshController:
+                            return (SshConfiguration)config;
+                        case RemoteType.MockController:
+                            return (MockConfiguration)config;
+                        default:
+                            return config;
+                    }
                 }
                 catch { }
             }
@@ -39,9 +46,19 @@ namespace BeocreateRemote.Model
         }
     }
 
-    public class MockConfiguration : Configuration;
+    public class MockConfiguration : Configuration
+    {
+        public MockConfiguration()
+        {
+            this.RemoteType = RemoteType.MockController;
+        }
+    }
     public class SshConfiguration : Configuration
     {
+        public SshConfiguration()
+        {
+            RemoteType = RemoteType.SshController;
+        }
 
         public string Address;
         public string User;

@@ -6,6 +6,5 @@ public partial class ConfigurationPage : ContentPage
     {
         InitializeComponent();
         BindingContext = configurationViewModel;
-
     }
 }

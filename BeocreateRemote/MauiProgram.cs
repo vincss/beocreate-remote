@@ -1,5 +1,6 @@
 ﻿using BeocreateRemote.Core;
 using BeocreateRemote.Core.mock;
+using BeocreateRemote.Helper;
 using BeocreateRemote.Model;
 using BeocreateRemote.Pages;
 using Microsoft.Extensions.Logging;
@@ -22,7 +23,7 @@ namespace BeocreateRemote
                 ;
 
             // ToDo change injection depending on factory ?
-            builder.Services.AddSingleton<IRemoteController>(new SshController("192.168.0.4", "osmc", "osmc"));
+            builder.Services.AddSingleton<ControllerContainer>(new ControllerContainer());
             //builder.Services.AddSingleton<IRemoteController>(new SshController("192.168.0.4", "root", "hifiberry"));
             //builder.Services.AddSingleton<IRemoteController>(new OsmcMock());
 
@@ -35,10 +36,8 @@ namespace BeocreateRemote
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<MainPage>();
 
-
 #if DEBUG
             builder.Logging.AddDebug();
-
 #endif
 
             return builder.Build();

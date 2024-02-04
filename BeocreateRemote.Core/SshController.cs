@@ -13,7 +13,6 @@ namespace BeocreateRemote.Core
         private readonly Func<int, Task?> _throttler;
         private static readonly TimeSpan cadence = TimeSpan.FromMilliseconds(250);
 
-
         public SshController(string address, string user, string password)
         {
             _sshClient = new SshClient(address, user, password);
@@ -69,6 +68,18 @@ namespace BeocreateRemote.Core
             }
         }
 
+        public bool IsConnected
+        {
+            get
+            {
+                try { 
+                CheckConnection();
+                return this._sshClient.IsConnected;
+                } catch { }
+                return false; 
+            }
+        }
+
         private Task setVolume(int volume)
         {
             if (volume == _lastAppliedValue)
@@ -87,13 +98,11 @@ namespace BeocreateRemote.Core
         {
             var fragment = volume.Split(' ')[1].Replace('.', ',');
             return (int)(double.Parse(fragment) * 100);
-
         }
 
         public static string ConvertBackVolume(int volume)
         {
             return ((double)volume / 100).ToString().Replace(',', '.');
-
         }
     }
 }
