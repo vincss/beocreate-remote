@@ -13,6 +13,16 @@ beocreate-remote
     - https://blog.taranissoftware.com/build-net-maui-apps-with-github-actions 
 
 
+# SigmaTcp 
+dsptoolkit get-meta volumeControlRegister
+dsptoolkit read-hex 106
+
+0.10 => 00 19 99 99 : 1677721
+0.09 => 00 17 0A 3D : 1509949
+0.05 => 00 0C CC CC : 838860
+0.01 => 00 02 8F 5C : 167772
+
+
 # Info 
 dotnet build -f net8.0-android34.0
 
