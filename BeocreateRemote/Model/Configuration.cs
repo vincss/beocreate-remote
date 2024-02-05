@@ -1,4 +1,5 @@
-﻿using BeocreateRemote.Helper;
+﻿using BeocreateRemote.Core;
+using BeocreateRemote.Helper;
 using System.Xml.Serialization;
 
 namespace BeocreateRemote.Model
@@ -6,11 +7,11 @@ namespace BeocreateRemote.Model
     public enum RemoteType
     {
         SshController = 0,
-
+        SigmaTcpController = 1,
         MockController = -1
     }
 
-    [XmlInclude(typeof(MockConfiguration)), XmlInclude(typeof(SshConfiguration)),]
+    [XmlInclude(typeof(MockConfiguration)), XmlInclude(typeof(SshConfiguration)), XmlInclude(typeof(SigmaTcpConfiguration))]
     public abstract class Configuration
     {
         const string ConfigurationKey = "BeoRemoteConfiguration";
@@ -36,6 +37,8 @@ namespace BeocreateRemote.Model
                             return (SshConfiguration)config;
                         case RemoteType.MockController:
                             return (MockConfiguration)config;
+                        case RemoteType.SigmaTcpController:
+                            return (SigmaTcpConfiguration)config;
                         default:
                             return config;
                     }
@@ -44,24 +47,5 @@ namespace BeocreateRemote.Model
             }
             return null;
         }
-    }
-
-    public class MockConfiguration : Configuration
-    {
-        public MockConfiguration()
-        {
-            this.RemoteType = RemoteType.MockController;
-        }
-    }
-    public class SshConfiguration : Configuration
-    {
-        public SshConfiguration()
-        {
-            RemoteType = RemoteType.SshController;
-        }
-
-        public string Address;
-        public string User;
-        public string Password;
     }
 }

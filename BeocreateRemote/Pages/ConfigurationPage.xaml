@@ -20,14 +20,22 @@
         <StackLayout Orientation="Horizontal">
 
             <RadioButton Content="Ssh Controller" IsChecked="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.SshController}}" ></RadioButton>
+            <RadioButton Content="SigmaTcp Controller" IsChecked="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.SigmaTcpController}}" ></RadioButton>
             <RadioButton Content="Mock Controller" IsChecked="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.MockController}}" />
         </StackLayout>
 
+        <!--Ssh-->
         <StackLayout IsVisible="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.SshController}}">
             <Entry Placeholder="Server address" Text="{Binding Path=Address}" />
             <Entry Placeholder="Server User" Text="{Binding Path=User}" />
             <Entry Placeholder="Server Password" Text="{Binding Path=Password}" />
         </StackLayout>
+
+        <!--SigmaTcp-->
+        <StackLayout IsVisible="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.SigmaTcpController}}">
+            <Entry Placeholder="Server address" Text="{Binding Path=Address}" />
+        </StackLayout>
+
         <Button Text="Save" Command="{Binding SaveCommand}"></Button>
     </VerticalStackLayout>
 </ContentPage>

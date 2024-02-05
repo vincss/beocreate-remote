@@ -53,6 +53,9 @@ namespace BeocreateRemote.Pages
                 case RemoteType.MockController:
                     configuration = new MockConfiguration();
                     break;
+                case RemoteType.SigmaTcpController:
+                    configuration = new SigmaTcpConfiguration { Address = Address };
+                    break;
                 default:
                     throw new Exception("Unknown type " + RemoteType);
 

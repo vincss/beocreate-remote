@@ -17,6 +17,9 @@ namespace BeocreateRemote.Helper
                     return new SshController(sshConfig.Address, sshConfig.User, sshConfig.Password);
                 case RemoteType.MockController:
                     return new MockController();
+                case RemoteType.SigmaTcpController:
+                    var sigmaTcpConfiguration = (SigmaTcpConfiguration)configuration;
+                    return new SigmaTcpController(sigmaTcpConfiguration.Address);
                 default:
                     throw new Exception("Unknown type " + configuration.RemoteType);
             }
