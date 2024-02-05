@@ -7,20 +7,20 @@
 
     <ScrollView>
         <VerticalStackLayout
-            Padding="30,0"
+            Padding="30"
             Spacing="25">
-            <Label Text="--- The Start ---" />
 
             <Button Text="Audio Control" Command="{Binding NavigateToAudioControlCommand}"></Button>
             <Button Text="Configuration" Command="{Binding NavigateToConfigurationCommand}"></Button>
-            
-            <Label Text="{Binding Temperature}" />
-            <Button 
-                Text="Refresh"
-                Command="{Binding RefreshCommand}"
-            />
 
-            <Label Text="--- The End ---" />
+            <StackLayout IsVisible="{Binding IsTemperatureAvailable}">
+                <Label Text="{Binding Temperature}" />
+                <Button 
+                    Text="Refresh"
+                    Command="{Binding RefreshCommand}"
+                />
+            </StackLayout>
+
         </VerticalStackLayout>
 
     </ScrollView>

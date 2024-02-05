@@ -1,4 +1,5 @@
-﻿using BeocreateRemote.Helper;
+﻿using BeocreateRemote.Core;
+using BeocreateRemote.Helper;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -10,6 +11,15 @@ namespace BeocreateRemote.Pages
         int temperature;
 
         private readonly ControllerContainer controllerContainer;
+
+        public bool IsTemperatureAvailable
+        {
+            get
+            {
+                if (controllerContainer.Controller == null) return false;
+                return controllerContainer.Controller.GetType() != typeof(SigmaTcpController);
+            }
+        }
 
         public MainViewModel(ControllerContainer controllerContainer)
         {
@@ -27,7 +37,6 @@ namespace BeocreateRemote.Pages
                 Refresh();
             }
         }
-
 
         [RelayCommand]
         void Refresh()
