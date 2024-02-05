@@ -15,10 +15,15 @@ namespace BeocreateRemote.Core
         const string AttributeVolumeControl = "volumeControlRegister";
         const string AttributeMuteRegister = "muteRegister";
 
+        private int? volumeAddress;
+        private int? muteAddress;
+
         const int CommandReadMemory = 0x0a;
         const int CommandWriteMemory = 0x09;
         const int CommandGetMetaData = 0xf8;
         const int CommandMetaDataResponse = 0xf9;
+
+        private int? volume;
 
         private TcpClient tcpClient;
         private readonly NetworkStream stream;
@@ -32,19 +37,22 @@ namespace BeocreateRemote.Core
 
         public double GetVolume()
         {
-            SendCommandGetMetaData(AttributeVolumeControl);
-            var address = ReceiveMetaDataAddress(); // ToDo Caching ?
-            var volume = ReadDecimal(address);
+            return ReadDecimal(GetVolumeAddress());
+        }
 
-            return volume;
+        private int GetVolumeAddress()
+        {
+            if (!volumeAddress.HasValue)
+            {
+                SendCommandGetMetaData(AttributeVolumeControl);
+                volumeAddress = ReceiveMetaDataAddress();
+            }
+            return volumeAddress.Value;
         }
 
         public void SetVolume(double value)
         {
-            SendCommandGetMetaData(AttributeVolumeControl);
-            var address = ReceiveMetaDataAddress();
-
-            WriteMemory(address, (float)value);
+            WriteMemory(GetVolumeAddress(), (float)value);
         }
 
         public void Mute()
@@ -59,10 +67,12 @@ namespace BeocreateRemote.Core
 
         private void setMute(bool mute)
         {
-            SendCommandGetMetaData(AttributeMuteRegister);
-            var address = ReceiveMetaDataAddress();
-
-            WriteMemory(address, mute ? 1 : 0);
+            if (!muteAddress.HasValue)
+            {
+                SendCommandGetMetaData(AttributeMuteRegister);
+                muteAddress = ReceiveMetaDataAddress();
+            }
+            WriteMemory(muteAddress.Value, mute ? 1 : 0);
         }
 
         private int ReceiveMetaDataAddress()
@@ -200,7 +210,22 @@ namespace BeocreateRemote.Core
             return (int)f;
         }
 
-        public int Volume { get { return (int)(GetVolume() * 100); } set { SetVolume((double)value / 100); } }
+        public int Volume
+        {
+            get
+            {
+                if (!volume.HasValue)
+                {
+                    volume = (int)(GetVolume() * 100);
+                }
+
+                return volume.Value;
+            }
+            set {
+                volume = value;
+                SetVolume((double)value / 100); 
+            }
+        }
 
         public bool IsConnected => tcpClient.Connected;
 
