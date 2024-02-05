@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace BeocreateRemote.Core
 {
@@ -38,8 +33,8 @@ namespace BeocreateRemote.Core
         public double GetVolume()
         {
             SendCommandGetMetaData(AttributeVolumeControl);
-            var address = GetMetaDataAddress(); // ToDo Caching ?
-            var volume = ReadDecimal(address, DecimalLenght);
+            var address = ReceiveMetaDataAddress(); // ToDo Caching ?
+            var volume = ReadDecimal(address);
 
             return volume;
         }
@@ -47,13 +42,30 @@ namespace BeocreateRemote.Core
         public void SetVolume(double value)
         {
             SendCommandGetMetaData(AttributeVolumeControl);
-            var address = GetMetaDataAddress();
+            var address = ReceiveMetaDataAddress();
 
-            var valueToSend = DecimalRepr((float)value);
-            WriteDecimal(address, valueToSend);
+            WriteMemory(address, (float)value);
         }
 
-        private int GetMetaDataAddress()
+        public void Mute()
+        {
+            setMute(true);
+        }
+
+        public void Unmute()
+        {
+            setMute(false);
+        }
+
+        private void setMute(bool mute)
+        {
+            SendCommandGetMetaData(AttributeMuteRegister);
+            var address = ReceiveMetaDataAddress();
+
+            WriteMemory(address, mute ? 1 : 0);
+        }
+
+        private int ReceiveMetaDataAddress()
         {
             var rcvData = new Byte[256];
             var readNbr = stream.Read(rcvData, 0, rcvData.Length);
@@ -79,14 +91,12 @@ namespace BeocreateRemote.Core
             byte[] packet = [.. header, .. attributeByte];
 
             stream.Write(packet, 0, packet.Length);
-
         }
 
-        private double ReadDecimal(int addressToRead, int decimalLength)
+        private double ReadDecimal(int addr, int decimalLength = DecimalLenght)
         {
             var data = new byte[HeaderSize];
             var length = (byte)decimalLength;
-            byte addr = (byte)addressToRead;
             data[0] = CommandReadMemory;
             data[4] = HeaderSize;
             data[9] = (byte)(length & 0xff);
@@ -103,11 +113,16 @@ namespace BeocreateRemote.Core
             return DecimalVal(decimalToParse);
         }
 
-        private void WriteDecimal(int addressToRead, int value)
+        private void WriteMemory(int addressToWrite, float value)
         {
-            byte[] data = (IntData(value));
+            var valueToSend = DecimalRepr(value);
+            WriteMemory(addressToWrite, valueToSend);
+        }
+
+        private void WriteMemory(int addr, int value)
+        {
+            byte[] data = IntData(value);
             int length = data.Length;
-            byte addr = (byte)addressToRead;
             byte[] header = new byte[HeaderSize];
             header[0] = CommandWriteMemory;
             header[11] = (byte)(length & 0xff);
@@ -131,7 +146,6 @@ namespace BeocreateRemote.Core
             {
                 octets[length - i] = (byte)((intval >> (i - 1) * 8) & 0xff);
             }
-
             return octets;
         }
 
@@ -188,21 +202,11 @@ namespace BeocreateRemote.Core
 
         public int Volume { get { return (int)(GetVolume() * 100); } set { SetVolume((double)value / 100); } }
 
-        public bool IsConnected => throw new NotImplementedException();
+        public bool IsConnected => tcpClient.Connected;
 
         public int GetTemperature()
         {
-            throw new NotImplementedException();
-        }
-
-        public void Mute()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Unmute()
-        {
-            throw new NotImplementedException();
+            return -1000;
         }
     }
 }
