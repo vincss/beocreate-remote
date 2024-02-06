@@ -19,10 +19,15 @@ namespace BeocreateRemote.Pages
 
         private readonly ControllerContainer controllerContainer;
 
+        public bool IsDebug = false;
+
         public ConfigurationViewModel(ControllerContainer controllerContainer)
         {
             this.controllerContainer = controllerContainer;
             LoadConfiguration();
+#if DEBUG
+            IsDebug = true;
+#endif
         }
 
         private void LoadConfiguration()
@@ -31,12 +36,18 @@ namespace BeocreateRemote.Pages
             if (configuration != null)
             {
                 RemoteType = configuration.RemoteType;
-                if (configuration.GetType() == typeof(SshConfiguration))
+                switch (configuration.RemoteType)
                 {
-                    var sshConfiguration = (SshConfiguration)configuration;
-                    Address = sshConfiguration.Address;
-                    User = sshConfiguration.User;
-                    Password = sshConfiguration.Password;
+                    case RemoteType.SigmaTcpController:
+                        var sigmaTcpConfiguration = (SigmaTcpConfiguration)configuration;
+                        Address = sigmaTcpConfiguration.Address;
+                        break;
+                    case RemoteType.SshController:
+                        var sshConfiguration = (SshConfiguration)configuration;
+                        Address = sshConfiguration.Address;
+                        User = sshConfiguration.User;
+                        Password = sshConfiguration.Password;
+                        break;
                 }
             }
         }

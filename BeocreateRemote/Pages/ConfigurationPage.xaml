@@ -21,7 +21,7 @@
 
             <RadioButton Content="Ssh Controller" IsChecked="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.SshController}}" ></RadioButton>
             <RadioButton Content="SigmaTcp Controller" IsChecked="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.SigmaTcpController}}" ></RadioButton>
-            <RadioButton Content="Mock Controller" IsChecked="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.MockController}}" />
+            <RadioButton Content="Mock Controller" IsVisible="{Binding Path=IsDebug}" IsChecked="{Binding Path=RemoteType, Converter={StaticResource ConfigurationConverter}, ConverterParameter={x:Static model:RemoteType.MockController}}" />
         </StackLayout>
 
         <!--Ssh-->

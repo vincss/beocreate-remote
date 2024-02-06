@@ -12,14 +12,9 @@ namespace BeocreateRemote.Pages
 
         private readonly ControllerContainer controllerContainer;
 
-        public bool IsTemperatureAvailable
-        {
-            get
-            {
-                if (controllerContainer.Controller == null) return false;
-                return controllerContainer.Controller.GetType() != typeof(SigmaTcpController);
-            }
-        }
+        [ObservableProperty]
+        private bool isTemperatureAvailable;
+
 
         public MainViewModel(ControllerContainer controllerContainer)
         {
@@ -41,6 +36,17 @@ namespace BeocreateRemote.Pages
         [RelayCommand]
         void Refresh()
         {
+
+            if (controllerContainer.Controller == null)
+            {
+                IsTemperatureAvailable = false;
+            }
+            else
+            {
+                IsTemperatureAvailable = controllerContainer.Controller.GetType() != typeof(SigmaTcpController);
+            }
+
+
             Temperature = controllerContainer.Controller?.GetTemperature() ?? -1;
         }
 

@@ -19,30 +19,23 @@ namespace BeocreateRemote.Core
             _throttler = Throttler.Throttle((int value) => setVolume(value), cadence, true, true).Invoke;
         }
 
-        private void CheckConnection()
-        {
-            if (!_sshClient.IsConnected)
-            {
-                _sshClient.Connect();
-            }
-        }
 
         public void Mute()
         {
-            CheckConnection();
+            if (!IsConnected) return;
             var result = _sshClient.RunCommand("dsptoolkit mute");
             Debug.WriteLine(result);
         }
         public void Unmute()
         {
-            CheckConnection();
+            if (!IsConnected) return;
             var result = _sshClient.RunCommand("dsptoolkit unmute");
             Debug.WriteLine(result);
         }
 
         public int GetTemperature()
         {
-            CheckConnection();
+            if (!IsConnected) return 0;
             var result = _sshClient.RunCommand("cat /sys/class/thermal/thermal_zone0/temp");
             return (int.Parse(result.Result) / 1000);
         }
@@ -56,7 +49,7 @@ namespace BeocreateRemote.Core
                     return (int)_volume;
                 }
 
-                CheckConnection();
+                if (!IsConnected) return 0;
                 var result = _sshClient.RunCommand("dsptoolkit get-volume");
                 Debug.WriteLine("Ssh get " + result.Result);
                 return ConvertVolume(result.Result);
@@ -72,11 +65,16 @@ namespace BeocreateRemote.Core
         {
             get
             {
-                try { 
-                CheckConnection();
-                return this._sshClient.IsConnected;
-                } catch { }
-                return false; 
+                try
+                {
+                    if (!_sshClient.IsConnected)
+                    {
+                        _sshClient.Connect();
+                    }
+                    return this._sshClient.IsConnected;
+                }
+                catch { }
+                return false;
             }
         }
 
@@ -87,7 +85,7 @@ namespace BeocreateRemote.Core
                 return Task.CompletedTask;
             }
 
-            CheckConnection();
+            if (!IsConnected) return Task.CompletedTask;
             var result = _sshClient.RunCommand("dsptoolkit set-volume " + ConvertBackVolume(volume));
             Debug.WriteLine("Ssh setVolume " + result.Result);
             _lastAppliedValue = volume;
