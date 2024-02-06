@@ -19,7 +19,8 @@ namespace BeocreateRemote.Pages
 
         private readonly ControllerContainer controllerContainer;
 
-        public bool IsDebug = false;
+        [ObservableProperty]
+        public bool isDebug = false;
 
         public ConfigurationViewModel(ControllerContainer controllerContainer)
         {

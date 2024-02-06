@@ -1,10 +1,6 @@
-﻿using BeocreateRemote.Core;
-using BeocreateRemote.Core.mock;
-using BeocreateRemote.Helper;
-using BeocreateRemote.Model;
+﻿using BeocreateRemote.Helper;
 using BeocreateRemote.Pages;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.LifecycleEvents;
 
 namespace BeocreateRemote
 {
@@ -22,10 +18,7 @@ namespace BeocreateRemote
                 })
                 ;
 
-            // ToDo change injection depending on factory ?
-            builder.Services.AddSingleton<ControllerContainer>(new ControllerContainer());
-            //builder.Services.AddSingleton<IRemoteController>(new SshController("192.168.0.4", "root", "hifiberry"));
-            //builder.Services.AddSingleton<IRemoteController>(new OsmcMock());
+            builder.Services.AddSingleton(new ControllerContainer());
 
             builder.Services.AddSingleton<ConfigurationViewModel>();
             builder.Services.AddSingleton<ConfigurationPage>();

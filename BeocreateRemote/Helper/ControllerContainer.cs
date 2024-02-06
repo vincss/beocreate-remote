@@ -2,7 +2,7 @@
 
 namespace BeocreateRemote.Helper
 {
-    public class ControllerContainer 
+    public class ControllerContainer
     {
         public IRemoteController Controller { get; set; }
     }

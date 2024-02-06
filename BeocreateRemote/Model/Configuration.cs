@@ -1,5 +1,4 @@
-﻿using BeocreateRemote.Core;
-using BeocreateRemote.Helper;
+﻿using BeocreateRemote.Helper;
 using System.Xml.Serialization;
 
 namespace BeocreateRemote.Model
