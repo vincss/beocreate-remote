@@ -23,19 +23,30 @@ namespace BeocreateRemote.Core
         const int CommandGetMetaData = 0xf8;
         const int CommandMetaDataResponse = 0xf9;
 
+        private static readonly float LSB_SIGMA = 1.0f / (float)Math.Pow(2, 23);
+
         private int? volume;
 
-        private TcpClient tcpClient;
-        private readonly NetworkStream stream;
+        private readonly TcpClient tcpClient;
+        private readonly string address;
+        private readonly int port;
 
         public SigmaTcpController(string address, int port = DefaultPort)
         {
             tcpClient = new TcpClient();
-            if(!tcpClient.ConnectAsync(address, port).Wait(1000))
+            this.address = address;
+            this.port = port;
+        }
+
+        private NetworkStream GetStream()
+        {
+            if(tcpClient.Connected) return tcpClient.GetStream();
+
+            if (!tcpClient.ConnectAsync(address, port).Wait(1000))
             {
                 throw new Exception("Failed to connect to " + address);
             };
-            stream = tcpClient.GetStream();
+            return tcpClient.GetStream();
         }
 
         public double GetVolume()
@@ -60,15 +71,15 @@ namespace BeocreateRemote.Core
 
         public void Mute()
         {
-            setMute(true);
+            SetMute(true);
         }
 
         public void Unmute()
         {
-            setMute(false);
+            SetMute(false);
         }
 
-        private void setMute(bool mute)
+        private void SetMute(bool mute)
         {
             if (!muteAddress.HasValue)
             {
@@ -81,7 +92,7 @@ namespace BeocreateRemote.Core
         private int ReceiveMetaDataAddress()
         {
             var rcvData = new Byte[256];
-            var readNbr = stream.Read(rcvData, 0, rcvData.Length);
+            var readNbr = GetStream().Read(rcvData, 0, rcvData.Length);
 
             if (rcvData[0] != CommandMetaDataResponse)
             {
@@ -103,7 +114,7 @@ namespace BeocreateRemote.Core
             var attributeByte = Encoding.UTF8.GetBytes(attribute); ;
             byte[] packet = [.. header, .. attributeByte];
 
-            stream.Write(packet, 0, packet.Length);
+            GetStream().Write(packet, 0, packet.Length);
         }
 
         private double ReadDecimal(int addr, int decimalLength = DecimalLenght)
@@ -117,10 +128,10 @@ namespace BeocreateRemote.Core
             data[11] = (byte)(addr & 0xff);
             data[10] = (byte)((addr >> 8) & 0xff);
 
-            stream.Write(data, 0, HeaderSize);
+            GetStream().Write(data, 0, HeaderSize);
 
             var rcvData = new byte[HeaderSize + decimalLength];
-            stream.Read(rcvData, 0, rcvData.Length);
+            GetStream().Read(rcvData, 0, rcvData.Length);
             var decimalToParse = rcvData[new Range(HeaderSize, rcvData.Length)];
 
             return DecimalVal(decimalToParse);
@@ -149,7 +160,7 @@ namespace BeocreateRemote.Core
             packet[6] = (byte)(packetLength & 0xff);
             packet[5] = (byte)((packetLength >> 8) & 0xff);
 
-            stream.Write(packet);
+            GetStream().Write(packet);
         }
 
         public static byte[] IntData(int intval, int length = DecimalLenght)
@@ -188,8 +199,6 @@ namespace BeocreateRemote.Core
             return Math.Round(f * 1000) / 1000;
         }
 
-        private static readonly float LSB_SIGMA = 1.0f / (float)Math.Pow(2, 23);
-
         public static int DecimalRepr(float f)
         {
             /*
@@ -224,13 +233,17 @@ namespace BeocreateRemote.Core
 
                 return volume.Value;
             }
-            set {
+            set
+            {
                 volume = value;
-                SetVolume((double)value / 100); 
+                SetVolume((double)value / 100);
             }
         }
 
-        public bool IsConnected => tcpClient.Connected;
+        public bool IsConnected { get {
+                GetStream();
+                return tcpClient.Connected;
+            } }
 
         public int GetTemperature()
         {
