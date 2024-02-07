@@ -17,39 +17,46 @@ namespace BeocreateRemote
             this.controllerContainer = controllerContainer;
         }
 
+        private async void OnCreated()
+        {
+            // take actions here...
+            Debug.WriteLine("Created");
+            var configuration = Configuration.Load();
+            if (configuration == null)
+            {
+                await Shell.Current.GoToAsync(nameof(ConfigurationPage));
+            }
+            else
+            {
+                try
+                {
+                    var controller = ControllerFactory.Create(configuration);
+                    if (controller.IsConnected)
+                    {
+                        controllerContainer.Controller = controller;
+                        await Shell.Current.GoToAsync(nameof(AudioControlPage));
+                    }
+                    else
+                    {
+                        await Current.MainPage.DisplayAlert("Failed", "Failed to connect to the server.", "Ok");
+                        await Shell.Current.GoToAsync(nameof(ConfigurationPage));
+                    }
+                }
+                catch (Exception e)
+                {
+                    Shell.Current.GoToAsync(nameof(ConfigurationPage));
+                }
+            }
+        }
+
         protected override Window CreateWindow(IActivationState activationState)
         {
             Window window = base.CreateWindow(activationState);
             window.Created += (sender, eventArgs) =>
             {
-                // take actions here...
-                Debug.WriteLine("Created");
-                var configuration = Configuration.Load();
-                if (configuration == null)
-                {
-                    Shell.Current.GoToAsync(nameof(ConfigurationPage));
-                }
-                else
-                {
-                    var controller = ControllerFactory.Create(configuration);
-                    if (!controller.IsConnected)
-                    {
-                        Task.Run(async () =>
-                        {
 
-                            if (!controller.IsConnected)
-                            {
-                                await Current.MainPage.DisplayAlert("Failed", "Failed to connect to the server.", "Ok");
-                            }
-                        });
-                        Shell.Current.GoToAsync(nameof(ConfigurationPage));
-                    }
-                    else
-                    {
-                        controllerContainer.Controller = controller;
-                        Shell.Current.GoToAsync(nameof(AudioControlPage));
-                    }
-                }
+                    OnCreated();
+                
             };
             window.Activated += (sender, eventArgs) =>
             {

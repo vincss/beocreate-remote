@@ -5,8 +5,8 @@ namespace BeocreateRemote.Model
 {
     public enum RemoteType
     {
-        SshController = 0,
-        SigmaTcpController = 1,
+        SigmaTcpController = 0,
+        SshController = 1,
         MockController = -1
     }
 

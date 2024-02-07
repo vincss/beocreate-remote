@@ -30,8 +30,11 @@ namespace BeocreateRemote.Core
 
         public SigmaTcpController(string address, int port = DefaultPort)
         {
-            tcpClient = new TcpClient(address, port);
-
+            tcpClient = new TcpClient();
+            if(!tcpClient.ConnectAsync(address, port).Wait(1000))
+            {
+                throw new Exception("Failed to connect to " + address);
+            };
             stream = tcpClient.GetStream();
         }
 

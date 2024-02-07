@@ -20,7 +20,6 @@ namespace BeocreateRemote.Core
             _throttler = Throttler.Throttle((int value) => setVolume(value), cadence, true, true).Invoke;
         }
 
-
         public void Mute()
         {
             if (!IsConnected) return;
@@ -70,7 +69,10 @@ namespace BeocreateRemote.Core
                 {
                     if (!_sshClient.IsConnected)
                     {
-                        _sshClient.Connect();
+                        if(!_sshClient.ConnectAsync(CancellationToken.None).Wait(1000))
+                        {
+                            throw new Exception("Failed to connect to the server.");
+                        }
                     }
                     return _sshClient.IsConnected;
                 }

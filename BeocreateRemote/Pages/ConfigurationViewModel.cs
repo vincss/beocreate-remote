@@ -73,17 +73,25 @@ namespace BeocreateRemote.Pages
 
             }
 
-            var controller = ControllerFactory.Create(configuration);
-            if (controller.IsConnected)
+            Configuration.Save(configuration);
+            try
             {
-                Configuration.Save(configuration);
-                controllerContainer.Controller = controller;
-                await Application.Current.MainPage.DisplayAlert("Validation", "Connection established.", "Ok");
-                await Shell.Current.GoToAsync(nameof(AudioControlPage));
+                var controller = ControllerFactory.Create(configuration);
+                if (controller.IsConnected)
+                {
+                    controllerContainer.Controller = controller;
+                    await Application.Current.MainPage.DisplayAlert("Validation", "Connection established.", "Ok");
+                    await Shell.Current.GoToAsync(nameof(AudioControlPage));
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Could not establish connection to server.", "Ok");
+                }
             }
-            else
+            catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Could not establish connection to server.", "Ok");
+                await Application.Current.MainPage.DisplayAlert("Error", "Could not establish connection to server: " + e.Message, "Ok");
+
             }
         }
     }
