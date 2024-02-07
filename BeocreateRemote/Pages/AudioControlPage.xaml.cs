@@ -23,14 +23,14 @@ public partial class AudioControlPage : ContentPage, IOnPageKeyDown
     {
         switch (keyCode)
         {
-            case Android.Views.Keycode.VolumeUp:
+            case Keycode.VolumeUp:
                 Debug.WriteLine("AudioVolumePage: DpadUp");
                 audioVolumeViewModel.VolumeIncrease();
 
                 // Your code here
                 return true;
 
-            case Android.Views.Keycode.VolumeDown:
+            case Keycode.VolumeDown:
 
                 Debug.WriteLine("AudioVolumePage: DpadDown");
                 // Your code here

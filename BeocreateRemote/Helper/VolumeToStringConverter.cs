@@ -26,7 +26,7 @@ namespace BeocreateRemote.Helper
 
         public static int ConvertBack(string volume)
         {
-            var value = double.Parse(volume);
+            var value = double.Parse(volume, NumberStyles.Any);
             if (value > VolumeMax) { value = VolumeMax; } else if (value < VolumeMin) { value = VolumeMin; }
             return (int)value;
         }

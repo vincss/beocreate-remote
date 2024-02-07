@@ -39,7 +39,7 @@ namespace BeocreateRemote
 
                             if (!controller.IsConnected)
                             {
-                                await Application.Current.MainPage.DisplayAlert("Failed", "Failed to connect to the server.", "Ok");
+                                await Current.MainPage.DisplayAlert("Failed", "Failed to connect to the server.", "Ok");
                             }
                         });
                         Shell.Current.GoToAsync(nameof(ConfigurationPage));

@@ -1,5 +1,6 @@
 ﻿using Renci.SshNet;
 using System.Diagnostics;
+using System.Globalization;
 using ThrottleDebounce;
 
 namespace BeocreateRemote.Core
@@ -71,7 +72,7 @@ namespace BeocreateRemote.Core
                     {
                         _sshClient.Connect();
                     }
-                    return this._sshClient.IsConnected;
+                    return _sshClient.IsConnected;
                 }
                 catch { }
                 return false;
@@ -94,13 +95,13 @@ namespace BeocreateRemote.Core
 
         public static int ConvertVolume(String volume)
         {
-            var fragment = volume.Split(' ')[1].Replace('.', ',');
-            return (int)(double.Parse(fragment) * 100);
+            var fragment = volume.Split(' ')[1];
+            return (int)(double.Parse(fragment,NumberStyles.Any) * 100);
         }
 
         public static string ConvertBackVolume(int volume)
         {
-            return ((double)volume / 100).ToString().Replace(',', '.');
+            return ((double)volume / 100).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

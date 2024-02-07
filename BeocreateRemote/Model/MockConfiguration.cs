@@ -4,7 +4,7 @@
     {
         public MockConfiguration()
         {
-            this.RemoteType = RemoteType.MockController;
+            RemoteType = RemoteType.MockController;
         }
     }
 }

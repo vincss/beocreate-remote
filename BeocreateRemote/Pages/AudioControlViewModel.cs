@@ -21,7 +21,7 @@ namespace BeocreateRemote.Pages
         {
             get
             {
-                var volume = VolumeToStringConverter.Convert(this.controllerContainer.Controller.Volume);
+                var volume = VolumeToStringConverter.Convert(controllerContainer.Controller.Volume);
                 //Debug.WriteLine("Volume get " + volume);
                 return volume;
             }
@@ -31,7 +31,7 @@ namespace BeocreateRemote.Pages
                 var volume = VolumeToStringConverter.ConvertBack(value);
                 //Debug.WriteLine("Volume set " + volume);
 
-                this.controllerContainer.Controller.Volume = volume;
+                controllerContainer.Controller.Volume = volume;
                 OnPropertyChanged(nameof(Volume));
             }
         }

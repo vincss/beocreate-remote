@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BeocreateRemote.Core.Test
+﻿namespace BeocreateRemote.Core.Test
 {
     [TestClass]
     public class UnitTestConverters
