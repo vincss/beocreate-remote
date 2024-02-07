@@ -93,7 +93,7 @@ jobs:
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: mauibeach-android-ci-build
+          name: android-ci-build
           path: BeocreateRemote/bin/Release/net8.0-android34.0/*Signed.a*
 
       # Execute all unit tests in the solution
