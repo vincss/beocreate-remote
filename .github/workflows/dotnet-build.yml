@@ -36,7 +36,7 @@
 # For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
 # refer to https://github.com/microsoft/github-actions-for-desktop-apps
 
-name: .NET Core Desktop
+name: .NET Build
 
 on:
   push:
@@ -94,7 +94,7 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: android-ci-build
-          path: BeocreateRemote/bin/Release/net8.0-android34.0/*Signed.a*
+          path: BeocreateRemote/bin/Release/net8.0-android34.0/*Signed.apk
 
       # Execute all unit tests in the solution
       - name: Execute unit tests
