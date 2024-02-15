@@ -22,7 +22,10 @@ dsptoolkit read-hex 106
 # Info 
 dotnet build -c Release -f net8.0-android34.0 --force
 
-dotnet publish --runtime linux-arm64 --self-contained
+# dotnet publish -c Release --runtime linux-arm64 --self-contained /p:PublishSingleFile=true
+dotnet publish -c Release --runtime linux-arm --self-contained /p:PublishSingleFile=true
+
+--urls "http://*:5000
 
 curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --channel STS
 

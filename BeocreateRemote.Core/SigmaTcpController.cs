@@ -66,6 +66,7 @@ namespace BeocreateRemote.Core
 
         public void SetVolume(double value)
         {
+            if (value < 0) { value = 0; } else if (value > 1) { value = 1; }
             WriteMemory(GetVolumeAddress(), (float)value);
         }
 
@@ -88,6 +89,40 @@ namespace BeocreateRemote.Core
             }
             WriteMemory(muteAddress.Value, mute ? 1 : 0);
         }
+
+        public int Volume
+        {
+            get
+            {
+                if (!volume.HasValue)
+                {
+                    volume = (int)(GetVolume() * 100);
+                }
+
+                return volume.Value;
+            }
+            set
+            {
+                if (value < 0) { value = 0; } else if (value > 100) { value = 100; }
+                volume = value;
+                SetVolume((double)value / 100);
+            }
+        }
+
+        public bool IsConnected
+        {
+            get
+            {
+                GetStream();
+                return tcpClient.Connected;
+            }
+        }
+
+        public int GetTemperature()
+        {
+            return -1000;
+        }
+
 
         private int ReceiveMetaDataAddress()
         {
@@ -220,34 +255,6 @@ namespace BeocreateRemote.Core
             // multiply by 2^24, then convert to integer
             f = f * (1 << 24);
             return (int)f;
-        }
-
-        public int Volume
-        {
-            get
-            {
-                if (!volume.HasValue)
-                {
-                    volume = (int)(GetVolume() * 100);
-                }
-
-                return volume.Value;
-            }
-            set
-            {
-                volume = value;
-                SetVolume((double)value / 100);
-            }
-        }
-
-        public bool IsConnected { get {
-                GetStream();
-                return tcpClient.Connected;
-            } }
-
-        public int GetTemperature()
-        {
-            return -1000;
         }
     }
 }

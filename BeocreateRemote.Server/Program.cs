@@ -10,16 +10,14 @@ namespace BeocreateRemote.Server
 
             // Add services to the container.
 
-            builder.Services.AddSingleton<IRemoteController>(new SigmaTcpController("192.168.0.4"));
+            builder.Services.AddSingleton<IRemoteController>(new SigmaTcpController("127.0.0.1"));
 
             builder.Services.AddControllers();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-
             app.UseAuthorization();
-
 
             app.MapControllers();
 
