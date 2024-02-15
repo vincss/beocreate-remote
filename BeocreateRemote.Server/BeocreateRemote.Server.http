@@ -1,0 +1,11 @@
+@BeocreateRemote.Server_HostAddress = http://localhost:5278
+
+GET {{BeocreateRemote.Server_HostAddress}}/Beocreate/
+Accept: application/json
+
+
+
+###
+
+POST {{BeocreateRemote.Server_HostAddress}}/Beocreate?action=plus
+Accept: application/json
