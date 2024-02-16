@@ -105,5 +105,10 @@ namespace BeocreateRemote.Core
         {
             return ((double)volume / 100).ToString(CultureInfo.InvariantCulture);
         }
+
+        public void ToggleMute()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

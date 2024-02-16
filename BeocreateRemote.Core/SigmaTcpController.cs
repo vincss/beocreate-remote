@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Text;
 
 
@@ -40,7 +41,7 @@ namespace BeocreateRemote.Core
 
         private NetworkStream GetStream()
         {
-            if(tcpClient.Connected) return tcpClient.GetStream();
+            if (tcpClient.Connected) return tcpClient.GetStream();
 
             if (!tcpClient.ConnectAsync(address, port).Wait(1000))
             {
@@ -88,6 +89,17 @@ namespace BeocreateRemote.Core
                 muteAddress = ReceiveMetaDataAddress();
             }
             WriteMemory(muteAddress.Value, mute ? 1 : 0);
+        }
+
+        public void ToggleMute()
+        {
+            if (!muteAddress.HasValue)
+            {
+                SendCommandGetMetaData(AttributeMuteRegister);
+                muteAddress = ReceiveMetaDataAddress();
+            }
+            int muted = ReadInt(muteAddress.Value);
+            WriteMemory(muteAddress.Value, muted == 1 ? 0 : 1);
         }
 
         public int Volume
@@ -154,6 +166,32 @@ namespace BeocreateRemote.Core
 
         private double ReadDecimal(int addr, int decimalLength = DecimalLenght)
         {
+            var bytesToParse = ReadMemory(addr, decimalLength);
+            return DecimalVal(bytesToParse);
+        }
+
+        private int ReadInt(int addr, int decimalLength = DecimalLenght)
+        {
+            var bytesToParse = ReadMemory(addr, decimalLength);
+
+            if (BitConverter.IsLittleEndian)
+                Array.Reverse(bytesToParse);
+
+
+            var value = (int)BitConverter.ToInt32(bytesToParse);
+
+
+            return value;
+        }
+
+        private void WriteMemory(int addressToWrite, float value)
+        {
+            var valueToSend = DecimalRepr(value);
+            WriteMemory(addressToWrite, valueToSend);
+        }
+
+        private byte[] ReadMemory(int addr, int decimalLength = DecimalLenght)
+        {
             var data = new byte[HeaderSize];
             var length = (byte)decimalLength;
             data[0] = CommandReadMemory;
@@ -167,15 +205,8 @@ namespace BeocreateRemote.Core
 
             var rcvData = new byte[HeaderSize + decimalLength];
             GetStream().Read(rcvData, 0, rcvData.Length);
-            var decimalToParse = rcvData[new Range(HeaderSize, rcvData.Length)];
-
-            return DecimalVal(decimalToParse);
-        }
-
-        private void WriteMemory(int addressToWrite, float value)
-        {
-            var valueToSend = DecimalRepr(value);
-            WriteMemory(addressToWrite, valueToSend);
+            var bytesToParse = rcvData[new Range(HeaderSize, rcvData.Length)];
+            return bytesToParse;
         }
 
         private void WriteMemory(int addr, int value)
@@ -256,5 +287,6 @@ namespace BeocreateRemote.Core
             f = f * (1 << 24);
             return (int)f;
         }
+
     }
 }

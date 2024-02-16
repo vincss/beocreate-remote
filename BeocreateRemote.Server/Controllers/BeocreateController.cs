@@ -20,15 +20,29 @@ namespace BeocreateRemote.Server.Controllers
         [HttpGet]
         public int Get([FromQuery] string? action)
         {
-            var volume = remoteController.Volume;
-            int? newVolume = action == null ? null : remoteController.Volume += action == "plus" ? 1 : -1;
-            _logger.LogInformation($"GetVolume action:{action} volume:{volume} newVolume:{newVolume}");
-            if (newVolume != null) 
+            try
             {
-               remoteController.Volume = newVolume.Value;
-            }
+                if (action == "mute")
+                {
+                    remoteController.ToggleMute();
+                    _logger.LogInformation($"Get action:{action}");
+                    return 0;
+                }
+                var volume = remoteController.Volume;
+                int? newVolume = action == null ? null : remoteController.Volume += action == "plus" ? 1 : -1;
+                _logger.LogInformation($"Get action:{action} volume:{volume} newVolume:{newVolume}");
+                if (newVolume != null)
+                {
+                    remoteController.Volume = newVolume.Value;
+                }
 
-            return newVolume != null ? newVolume.Value : volume ;
+                return newVolume != null ? newVolume.Value : volume;
+            }
+            catch (System.Exception e)
+            {
+                _logger.LogError($"ERROR Get failed to act on volume: {e.Message}");
+            }
+            return 0;
         }
     }
 }

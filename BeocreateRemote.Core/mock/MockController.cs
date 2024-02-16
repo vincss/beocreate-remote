@@ -27,5 +27,10 @@
         {
             _mute = false;
         }
+
+        public void ToggleMute()
+        {
+            _mute = !_mute;
+        }
     }
 }
