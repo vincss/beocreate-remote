@@ -1,0 +1,11 @@
+# /lib/systemd/system/beocreate.server.service
+[Unit]
+Description=Beocreate Remote Service
+After=network.target
+
+[Service]
+WorkingDirectory=/home/osmc/beocreate.server/
+ExecStart=/home/osmc/beocreate.server/BeocreateRemote.Server
+
+[Install]
+WantedBy=multi-user.target
