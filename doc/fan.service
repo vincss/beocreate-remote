@@ -1,0 +1,9 @@
+# /lib/systemd/system/fan.service
+[Unit]
+Description=Fan PWM
+
+[Service]
+ExecStart=/home/osmc/fan/fan.sh
+
+[Install]
+WantedBy=multi-user.target
