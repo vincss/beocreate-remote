@@ -5,12 +5,22 @@ using System.ComponentModel;
 
 namespace BeocreateRemote.Pages
 {
-    public partial class AudioControlViewModel : ObservableObject, INotifyPropertyChanged
+    public partial class AudioControlViewModel : ObservableObject
     {
         private static readonly double _increment = 1;
 
         private readonly ControllerContainer controllerContainer;
-        bool? _muted;
+
+        public bool Mute
+        {
+            get => controllerContainer.Controller.Mute; set
+            {
+                controllerContainer.Controller.Mute = value;
+                OnPropertyChanged(nameof(Mute));
+                OnPropertyChanged(nameof(MuteText));
+            }
+        }
+        public string MuteText { get { return Mute ? "🔈" : "🔇"; } }
 
         public AudioControlViewModel(ControllerContainer controllerContainer)
         {
@@ -39,17 +49,7 @@ namespace BeocreateRemote.Pages
         [RelayCommand]
         public Task MuteOnOff()
         {
-
-            if (_muted == true)
-            {
-                controllerContainer.Controller.Unmute();
-                _muted = false;
-            }
-            else
-            {
-                controllerContainer.Controller.Mute();
-                _muted = true;
-            }
+            Mute = !Mute;
             return Task.CompletedTask;
         }
 

@@ -9,7 +9,9 @@ namespace BeocreateRemote.Pages;
 
 public partial class AudioControlPage : ContentPage, IOnPageKeyDown
 {
+#pragma warning disable IDE0052 // Remove unread private members
     private readonly AudioControlViewModel audioVolumeViewModel;
+#pragma warning restore IDE0052 // Remove unread private members
 
     public AudioControlPage(AudioControlViewModel audioVolumeViewModel)
     {

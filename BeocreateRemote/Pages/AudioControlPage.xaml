@@ -15,8 +15,8 @@
     <VerticalStackLayout Spacing="15" Padding="30" >
         <Slider Value="{Binding Volume}" Minimum="0" Maximum="100" />
         <Label Text="{Binding Volume, Converter={StaticResource volumeToStringConverter}}"/>
-        <Button Command="{Binding MuteOnOffCommand}" Text="Mute On/Off" />
-        <Button Command="{Binding VolumeIncreaseCommand}" Text="🔊" />
-        <Button Command="{Binding VolumeDecreaseCommand}" Text="🔉" />
+        <Button Command="{Binding MuteOnOffCommand}" Text="{Binding MuteText}" FontSize="32" />
+        <Button Command="{Binding VolumeIncreaseCommand}" Text="🔊" FontSize="32" />
+        <Button Command="{Binding VolumeDecreaseCommand}" Text="🔉" FontSize="32" />
     </VerticalStackLayout>
 </ContentPage>

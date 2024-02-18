@@ -17,10 +17,9 @@ namespace BeocreateRemote
             this.controllerContainer = controllerContainer;
         }
 
-        private async void OnCreated()
+        private async void OnRestore()
         {
-            // take actions here...
-            Debug.WriteLine("Created");
+            Debug.WriteLine("OnRestore");
             var configuration = Configuration.Load();
             if (configuration == null)
             {
@@ -44,6 +43,7 @@ namespace BeocreateRemote
                 }
                 catch (Exception e)
                 {
+                    Debug.WriteLine($"OnRestore {e.Message}");
                     Shell.Current.GoToAsync(nameof(ConfigurationPage));
                 }
             }
@@ -54,14 +54,11 @@ namespace BeocreateRemote
             Window window = base.CreateWindow(activationState);
             window.Created += (sender, eventArgs) =>
             {
-
-                    OnCreated();
-                
+                OnRestore();
             };
             window.Activated += (sender, eventArgs) =>
             {
-                // take actions here...
-                Debug.WriteLine("Activated");
+                OnRestore();
             };
             return window;
         }

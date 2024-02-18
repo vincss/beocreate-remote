@@ -9,6 +9,7 @@ namespace BeocreateRemote.Core
 
     {
         private int? _volume;
+        private bool muted = false;
         private int _lastAppliedValue = int.MinValue;
         private readonly SshClient _sshClient;
         private readonly Func<int, Task?> _throttler;
@@ -17,7 +18,7 @@ namespace BeocreateRemote.Core
         public SshController(string address, string user, string password)
         {
             _sshClient = new SshClient(address, user, password);
-            _throttler = Throttler.Throttle((int value) => setVolume(value), cadence, true, true).Invoke;
+            _throttler = Throttler.Throttle((int value) => SetVolume(value), cadence, true, true).Invoke;
         }
 
         public void Mute()
@@ -25,12 +26,14 @@ namespace BeocreateRemote.Core
             if (!IsConnected) return;
             var result = _sshClient.RunCommand("dsptoolkit mute");
             Debug.WriteLine(result);
+            muted = true;
         }
         public void Unmute()
         {
             if (!IsConnected) return;
             var result = _sshClient.RunCommand("dsptoolkit unmute");
             Debug.WriteLine(result);
+            muted = false;
         }
 
         public int GetTemperature()
@@ -69,7 +72,7 @@ namespace BeocreateRemote.Core
                 {
                     if (!_sshClient.IsConnected)
                     {
-                        if(!_sshClient.ConnectAsync(CancellationToken.None).Wait(1000))
+                        if (!_sshClient.ConnectAsync(CancellationToken.None).Wait(1000))
                         {
                             throw new Exception("Failed to connect to the server.");
                         }
@@ -80,8 +83,16 @@ namespace BeocreateRemote.Core
                 return false;
             }
         }
+        bool IRemoteController.Mute
+        {
+            get => muted;
+            set
+            {
+                if (muted) Unmute(); else Mute();
+            }
+        }
 
-        private Task setVolume(int volume)
+        private Task SetVolume(int volume)
         {
             if (volume == _lastAppliedValue)
             {
@@ -98,7 +109,7 @@ namespace BeocreateRemote.Core
         public static int ConvertVolume(String volume)
         {
             var fragment = volume.Split(' ')[1];
-            return (int)(double.Parse(fragment,NumberStyles.Any) * 100);
+            return (int)(double.Parse(fragment, NumberStyles.Any) * 100);
         }
 
         public static string ConvertBackVolume(int volume)
@@ -106,9 +117,5 @@ namespace BeocreateRemote.Core
             return ((double)volume / 100).ToString(CultureInfo.InvariantCulture);
         }
 
-        public void ToggleMute()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

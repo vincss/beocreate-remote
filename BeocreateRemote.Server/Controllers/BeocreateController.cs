@@ -5,17 +5,10 @@ namespace BeocreateRemote.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BeocreateController : ControllerBase
+    public class BeocreateController(ILogger<BeocreateController> logger, IRemoteController remoteController) : ControllerBase
     {
-        private readonly ILogger<BeocreateController> _logger;
-        private readonly IRemoteController remoteController;
-
-        public BeocreateController(ILogger<BeocreateController> logger, IRemoteController remoteController)
-        {
-            _logger = logger;
-            this.remoteController = remoteController;
-        }
-
+        private readonly ILogger<BeocreateController> _logger = logger;
+        private readonly IRemoteController remoteController = remoteController;
 
         [HttpGet]
         public int Get([FromQuery] string? action)
@@ -24,9 +17,10 @@ namespace BeocreateRemote.Server.Controllers
             {
                 if (action == "mute")
                 {
-                    remoteController.ToggleMute();
+                    bool mute = !remoteController.Mute;
+                    remoteController.Mute = mute;
                     _logger.LogInformation($"Get action:{action}");
-                    return 0;
+                    return mute ? 1 : 0;
                 }
                 var volume = remoteController.Volume;
                 int? newVolume = action == null ? null : remoteController.Volume += action == "plus" ? 1 : -1;
@@ -38,7 +32,7 @@ namespace BeocreateRemote.Server.Controllers
 
                 return newVolume != null ? newVolume.Value : volume;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 _logger.LogError($"ERROR Get failed to act on volume: {e.Message}");
             }

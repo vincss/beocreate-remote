@@ -15,7 +15,6 @@ namespace BeocreateRemote.Core.Test
         public void TestSigmaController()
         {
             var sigmaTcpController = new SigmaTcpController("192.168.0.4");
-            sigmaTcpController.ToggleMute();
 /*
             sigmaTcpController.SetVolume(0.02);
             sigmaTcpController.Volume = 7;

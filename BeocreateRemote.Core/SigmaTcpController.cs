@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics;
 using System.Net.Sockets;
-using System.Numerics;
 using System.Text;
 
 
 namespace BeocreateRemote.Core
 {
-    public class SigmaTcpController : IRemoteController
+    public class SigmaTcpController(string address, int port = SigmaTcpController.DefaultPort) : IRemoteController
     {
         const int DefaultPort = 8086;
 
@@ -28,25 +27,20 @@ namespace BeocreateRemote.Core
 
         private int? volume;
 
-        private readonly TcpClient tcpClient;
-        private readonly string address;
-        private readonly int port;
+        private readonly TcpClient tcpClient = new();
 
-        public SigmaTcpController(string address, int port = DefaultPort)
+        public void Connect()
         {
-            tcpClient = new TcpClient();
-            this.address = address;
-            this.port = port;
+            if (!tcpClient.ConnectAsync(address, port).Wait(1000))
+            {
+                throw new Exception("Failed to connect to " + address);
+            };
         }
 
         private NetworkStream GetStream()
         {
             if (tcpClient.Connected) return tcpClient.GetStream();
-
-            if (!tcpClient.ConnectAsync(address, port).Wait(1000))
-            {
-                throw new Exception("Failed to connect to " + address);
-            };
+            Connect();
             return tcpClient.GetStream();
         }
 
@@ -71,35 +65,26 @@ namespace BeocreateRemote.Core
             WriteMemory(GetVolumeAddress(), (float)value);
         }
 
-        public void Mute()
+        public bool Mute
         {
-            SetMute(true);
-        }
-
-        public void Unmute()
-        {
-            SetMute(false);
-        }
-
-        private void SetMute(bool mute)
-        {
-            if (!muteAddress.HasValue)
-            {
-                SendCommandGetMetaData(AttributeMuteRegister);
-                muteAddress = ReceiveMetaDataAddress();
+            get {
+                if (!muteAddress.HasValue)
+                {
+                    SendCommandGetMetaData(AttributeMuteRegister);
+                    muteAddress = ReceiveMetaDataAddress();
+                }
+                int muted = ReadInt(muteAddress.Value);
+                return muted == 1;
             }
-            WriteMemory(muteAddress.Value, mute ? 1 : 0);
-        }
+            set {
+                if (!muteAddress.HasValue)
+                {
+                    SendCommandGetMetaData(AttributeMuteRegister);
+                    muteAddress = ReceiveMetaDataAddress();
+                }
+                WriteMemory(muteAddress.Value, value ? 1 : 0);
 
-        public void ToggleMute()
-        {
-            if (!muteAddress.HasValue)
-            {
-                SendCommandGetMetaData(AttributeMuteRegister);
-                muteAddress = ReceiveMetaDataAddress();
             }
-            int muted = ReadInt(muteAddress.Value);
-            WriteMemory(muteAddress.Value, muted == 1 ? 0 : 1);
         }
 
         public int Volume
@@ -177,10 +162,7 @@ namespace BeocreateRemote.Core
             if (BitConverter.IsLittleEndian)
                 Array.Reverse(bytesToParse);
 
-
-            var value = (int)BitConverter.ToInt32(bytesToParse);
-
-
+            var value = BitConverter.ToInt32(bytesToParse);
             return value;
         }
 
@@ -284,7 +266,7 @@ namespace BeocreateRemote.Core
             }
 
             // multiply by 2^24, then convert to integer
-            f = f * (1 << 24);
+            f *= (1 << 24);
             return (int)f;
         }
 
