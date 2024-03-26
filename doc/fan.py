@@ -8,8 +8,8 @@ import sys
 # initializing GPIO, setting mode to BOARD.
 # Default pin of FAN Adapter is physical pin 32, GPIO12; 
 
-MIN_SPEED=40
-MIN_TEMP=50
+MIN_SPEED=60
+MIN_TEMP=55
 
 MAX_SPEED=100
 MAX_TEMP=70
@@ -18,7 +18,7 @@ Fan = 12  #if you connect to pin txd physical pin 8, GPIO14，then set to :Fan =
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(Fan, GPIO.OUT)
 
-p = GPIO.PWM(Fan, 10)
+p = GPIO.PWM(Fan, 50)
 p.start(0)
 
 temp = 0
