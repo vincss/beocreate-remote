@@ -4,7 +4,7 @@ Description=Fan PWM
 
 [Service]
 ExecStartPre=/bin/sleep 15
-ExecStart=/home/osmc/beocreate-remote/doc/fan.sh
+ExecStart=/bin/bash -c "PATH=/opt/vc/bin/:$PATH /home/osmc/beocreate-remote/doc/fan.sh"
 Restart=always
 RestartSec=5
 

@@ -1,11 +1,14 @@
 # stop
+echo .. Stopping ..
 sudo systemctl stop fan
 sudo systemctl stop beocreate-server
 
 # fan
+echo .. Install fan ..
 sudo cp fan.service /lib/systemd/system/
 
 # server
+echo .. Install beocreate-server ..
 sudo cp beocreate-server.service /lib/systemd/system/
 cd ..
 mkdir bin/
@@ -15,8 +18,13 @@ wget https://github.com/vincss/beocreate-remote/releases/latest/download/server-
 unzip -o server-ci-build.zip
 chmod +x BeocreateRemote.Server
 
+
 sudo systemctl daemon-reload
-sudo systemctl enable fan
-sudo systemctl start fan
+
+echo .. Start beocreate-server ..
 sudo systemctl enable beocreate-server
 sudo systemctl start beocreate-server
+
+echo .. Start fan ..
+sudo systemctl enable fan
+sudo systemctl start fan
