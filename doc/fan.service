@@ -3,7 +3,10 @@
 Description=Fan PWM
 
 [Service]
+ExecStartPre=/bin/sleep 15
 ExecStart=/home/osmc/beocreate-remote/doc/fan.sh
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
