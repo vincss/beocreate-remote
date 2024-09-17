@@ -9,5 +9,6 @@ cd bin
 wget https://github.com/vincss/beocreate-remote/releases/download/latest/server-ci-build.zip 
 unzip server-ci-build.zip
 
-
 sudo systemctl daemon-reload
+sudo systemctl start fan
+sudo systemctl start beocreate.server
