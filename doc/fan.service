@@ -4,6 +4,7 @@ Description=Fan PWM
 
 [Service]
 ExecStart=/home/osmc/fan/fan.sh
+ExecStartPre=/bin/sleep 30
 
 [Install]
 WantedBy=multi-user.target
