@@ -8,3 +8,7 @@ curl https://raw.githubusercontent.com/hifiberry/create/refs/heads/development/B
 
 dsptoolkit set-volume 0.05
 dsptoolkit write-mem 4841 1
+
+dsptoolkit save
+
+dsptoolkit read-mem 4841 
