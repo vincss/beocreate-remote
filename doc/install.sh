@@ -1,5 +1,6 @@
 echo .. Copy Files ..
 cd
+rm -rf beocreate-remote/
 git clone https://github.com/vincss/beocreate-remote.git
 
 cd beocreate-remote/doc/
@@ -13,7 +14,7 @@ sudo systemctl stop beocreate-server
 echo .. Install fan ..
 sudo cp fan.service /lib/systemd/system/
 sudo sed -i "s/\/home\/osmc/($PWD)/g" /lib/systemd/system/sigmatcp.service
-sudo sed -i "s/\/home\/osmc/($PWD)/g" /lib/systemd/system/sigmatcp.service
+sudo sed -i "s/\/home\/osmc/($PWD)/g" fan.sh
 
 # server
 # echo .. Install beocreate-server ..
