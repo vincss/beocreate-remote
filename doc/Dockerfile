@@ -25,7 +25,7 @@ RUN apt-get update ; \
 
 RUN echo ... Install dsptoolkit ...
 RUN touch /boot/config.txt
-RUN curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit -o install-dsptoolkit ; sh install-dsptoolkit
+RUN curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit -O ; sh install-dsptoolkit
 
 RUN echo ... Customize ... 
 RUN sed -i "s/ --localhost//g" /lib/systemd/system/sigmatcp.service
