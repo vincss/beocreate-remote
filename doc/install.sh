@@ -8,7 +8,7 @@ cd beocreate-remote/doc/
 # stop
 echo .. Stopping ..
 sudo systemctl stop fan
-sudo systemctl stop beocreate-server
+# sudo systemctl stop beocreate-server
 
 # fan
 echo .. Install fan ..

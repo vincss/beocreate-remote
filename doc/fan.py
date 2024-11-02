@@ -26,7 +26,7 @@ speed = 0
 
 try:
     while True:
-        temp = float(sp.getoutput("vcgencmd measure_temp|egrep -o '[0-9]*\.[0-9]*'"))
+        temp = float(sp.getoutput("cat /sys/class/thermal/thermal_zone0/temp")) / 1000
 
         if temp < MIN_TEMP:
             speed = MIN_SPEED
