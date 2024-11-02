@@ -4,4 +4,4 @@
 # /bin/sleep 15
 echo ... Starting fan control ...
 
-sudo python /home/osmc/beocreate-remote/doc/fan.py 
+sudo python3 /home/osmc/beocreate-remote/doc/fan.py 
