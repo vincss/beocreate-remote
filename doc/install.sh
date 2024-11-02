@@ -13,8 +13,8 @@ sudo systemctl stop beocreate-server
 # fan
 echo .. Install fan ..
 sudo cp fan.service /lib/systemd/system/
-sudo sed -i "s/\/home\/osmc/$(PWD)/g" /lib/systemd/system/fan.service
-sudo sed -i "s/\/home\/osmc/$(PWD)/g" fan.sh
+sudo sed -i 's/\/home\/osmc/"$PWD"/g' /lib/systemd/system/fan.service
+sudo sed -i 's/\/home\/osmc/"$PWD"/g' fan.sh
 
 # server
 # echo .. Install beocreate-server ..
