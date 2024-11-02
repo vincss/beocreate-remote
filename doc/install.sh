@@ -1,3 +1,4 @@
+#!/bin/bash
 echo .. Copy Files ..
 cd
 rm -rf beocreate-remote/
@@ -27,7 +28,6 @@ sudo sed -i 's/\/home\/osmc/"$PWD"/g' fan.sh
 # unzip -o server-ci-build.zip
 # chmod +x BeocreateRemote.Server
 
-
 sudo systemctl daemon-reload
 
 # echo .. Start beocreate-server ..
@@ -37,3 +37,5 @@ sudo systemctl daemon-reload
 echo .. Start fan ..
 sudo systemctl enable fan
 sudo systemctl start fan
+
+echo .. End ..

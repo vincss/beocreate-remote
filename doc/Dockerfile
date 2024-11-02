@@ -13,7 +13,7 @@ RUN apt-get update ; \
     python3-dev python3-pip \
     libasound2-dev libxslt1-dev libxml2-dev zlib1g-dev libxml2-dev libxslt-dev git gcc alsa-utils; \
     apt-get clean ; \
-    pip3 install xmltodict spidev requests RPi.GPIO pyalsaaudio --break-system-packages ; \
+    pip3 install xmltodict spidev requests RPi.GPIO pyalsaaudio --break-system-packages; \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* ; \
     rm -rf /lib/systemd/system/multi-user.target.wants/* ; \
     rm -rf /etc/systemd/system/*.wants/* ; \
@@ -24,19 +24,17 @@ RUN apt-get update ; \
     rm -rf /lib/systemd/system/systemd-update-utmp*
 
 RUN echo ... Install dsptoolkit ...
-RUN touch /boot/config.txt
-RUN curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit -O ; sh install-dsptoolkit
+RUN touch /boot/config.txt; \
+    curl https://raw.githubusercontent.com/hifiberry/hifiberry-dsp/master/install-dsptoolkit -O ; sh install-dsptoolkit
 
 RUN echo ... Customize ... 
-RUN sed -i "s/ --localhost//g" /lib/systemd/system/sigmatcp.service
-RUN sed -i "s/Type=simple/Type=simple\nRestart=always\nRestartSec=5/g" /lib/systemd/system/sigmatcp.service
+RUN sed -i "s/ --localhost//g" /lib/systemd/system/sigmatcp.service; \
+    sed -i "s/Type=simple/Type=simple\nRestart=always\nRestartSec=5/g" /lib/systemd/system/sigmatcp.service
 
-RUN echo ... Install Fan & Server ...
+RUN echo ... Install Fan and Server ...
 RUN curl https://raw.githubusercontent.com/vincss/beocreate-remote/refs/heads/main/doc/install.sh -O ; sh install.sh
 
 RUN echo ... End ...
 
 VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/lib/systemd/systemd"]
-
-

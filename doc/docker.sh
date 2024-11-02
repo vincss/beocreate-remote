@@ -1,6 +1,6 @@
 # WIP
 
-docker run --tty --cgroupns=host --privileged --volume /sys/fs/cgroup:/sys/fs/cgroup -it -p 8086:8086 $(docker build -q .)
+docker run --tty --cgroupns=host --privileged --volume /sys/fs/cgroup:/sys/fs/cgroup -it -p 8086:8086 --restart=always $(docker build -q .)
 
 docker exec -it <container-name> /bin/bash
 
