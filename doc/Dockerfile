@@ -31,6 +31,9 @@ RUN echo ... Customize ...
 RUN sed -i "s/ --localhost//g" /lib/systemd/system/sigmatcp.service
 RUN sed -i "s/Type=simple/Type=simple\nRestart=always\nRestartSec=5/g" /lib/systemd/system/sigmatcp.service
 
+RUN echo ... Install Fan & Server ...
+RUN curl https://raw.githubusercontent.com/vincss/beocreate-remote/refs/heads/main/doc/install.sh -O ; sh install.sh
+
 RUN echo ... End ...
 
 VOLUME [ "/sys/fs/cgroup" ]

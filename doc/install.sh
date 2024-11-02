@@ -2,6 +2,8 @@ echo .. Copy Files ..
 cd
 git clone https://github.com/vincss/beocreate-remote.git
 
+cd beocreate-remote/doc/
+
 # stop
 echo .. Stopping ..
 sudo systemctl stop fan
