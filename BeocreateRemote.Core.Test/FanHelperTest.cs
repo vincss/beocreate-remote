@@ -13,8 +13,11 @@ namespace BeocreateRemote.Core.Test
             speed = FanHelper.GetSpeedFromTemperature(FanConfiguration.MaxTemp);
             Assert.AreEqual(speed, FanConfiguration.MaxSpeed);
 
-            speed = FanHelper.GetSpeedFromTemperature(60);
-            Assert.AreEqual(speed, FanConfiguration.MaxSpeed);
+            speed = (int)(FanHelper.GetSpeedFromTemperature(60) * 100);
+            Assert.AreEqual(speed, 73);
+
+            speed = (int)(FanHelper.GetSpeedFromTemperature(65) * 100);
+            Assert.AreEqual(speed, 86);
         }
 
     }
