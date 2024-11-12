@@ -96,13 +96,14 @@ jobs:
 
       # Build Server
       - name: Build Server
-        run: dotnet publish BeocreateRemote.Server/BeocreateRemote.Server.csproj -c Release --runtime linux-arm --self-contained /p:PublishSingleFile=true
+        # run: dotnet publish BeocreateRemote.Server/BeocreateRemote.Server.csproj -c Release --runtime linux-arm --self-contained /p:PublishSingleFile=true
+        run: dotnet publish BeocreateRemote.Server/BeocreateRemote.Server.csproj -c Release
 
       - name: Upload Server Artifact
         uses: actions/upload-artifact@v4
         with:
           name: server-ci-build
-          path: BeocreateRemote.Server/bin/Release/net8.0/linux-arm/publish/
+          path: BeocreateRemote.Server/bin/Release/
 
       # Execute all unit tests in the solution
       - name: Execute unit tests
