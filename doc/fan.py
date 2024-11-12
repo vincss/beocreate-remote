@@ -19,7 +19,7 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setup(Fan, GPIO.OUT)
 
 p = GPIO.PWM(Fan, 50)
-p.start(0)
+p.start(1)
 
 temp = 0
 speed = 0

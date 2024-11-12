@@ -12,6 +12,9 @@ namespace BeocreateRemote.Server
 
             // builder.Services.AddSingleton<IRemoteController>(new SigmaTcpController("192.168.0.4"));
             builder.Services.AddSingleton<IRemoteController>(new SigmaTcpController("127.0.0.1"));
+            builder.Services.AddSingleton<TemperatureReader>();
+            builder.Services.AddSingleton<FanController>();
+            builder.Services.AddHostedService<TimedHostedService>();
 
             builder.Services.AddControllers();
 

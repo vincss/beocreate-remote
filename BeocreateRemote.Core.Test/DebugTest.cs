@@ -2,7 +2,7 @@ namespace BeocreateRemote.Core.Test
 {
     [Ignore]
     [TestClass]
-    public class UnitTests
+    public class DebugTest
     {
         [TestMethod]
         public void TestSshController()

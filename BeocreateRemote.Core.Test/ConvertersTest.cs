@@ -1,7 +1,7 @@
 ﻿namespace BeocreateRemote.Core.Test
 {
     [TestClass]
-    public class UnitTestConverters
+    public class ConvertersTest
     {
 
         [TestMethod]
