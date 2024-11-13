@@ -1,8 +1,8 @@
 ﻿namespace BeocreateRemote.Model
 {
-    public class MockConfiguration : Configuration
+    public class ConfigurationMock : Configuration
     {
-        public MockConfiguration()
+        public ConfigurationMock()
         {
             RemoteType = RemoteType.MockController;
         }

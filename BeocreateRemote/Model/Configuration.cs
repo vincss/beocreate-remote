@@ -10,7 +10,7 @@ namespace BeocreateRemote.Model
         MockController = -1
     }
 
-    [XmlInclude(typeof(MockConfiguration)), XmlInclude(typeof(SshConfiguration)), XmlInclude(typeof(SigmaTcpConfiguration))]
+    [XmlInclude(typeof(ConfigurationMock)), XmlInclude(typeof(SshConfiguration)), XmlInclude(typeof(SigmaTcpConfiguration))]
     public abstract class Configuration
     {
         const string ConfigurationKey = "BeoRemoteConfiguration";
@@ -35,7 +35,7 @@ namespace BeocreateRemote.Model
                         case RemoteType.SshController:
                             return (SshConfiguration)config;
                         case RemoteType.MockController:
-                            return (MockConfiguration)config;
+                            return (ConfigurationMock)config;
                         case RemoteType.SigmaTcpController:
                             return (SigmaTcpConfiguration)config;
                         default:

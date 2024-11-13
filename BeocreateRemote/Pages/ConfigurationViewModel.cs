@@ -63,7 +63,7 @@ namespace BeocreateRemote.Pages
                     configuration = new SshConfiguration { Address = Address, User = User, Password = Password };
                     break;
                 case RemoteType.MockController:
-                    configuration = new MockConfiguration();
+                    configuration = new ConfigurationMock();
                     break;
                 case RemoteType.SigmaTcpController:
                     configuration = new SigmaTcpConfiguration { Address = Address };

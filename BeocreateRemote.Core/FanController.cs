@@ -1,22 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Device.Pwm.Drivers;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Device.Pwm.Drivers;
 
 namespace BeocreateRemote.Core
 {
-    public class FanController : IDisposable
+    public class FanController : IFanController
     {
         const int Pin = 12;
-        private readonly ILogger<FanController> _logger;
         private readonly SoftwarePwmChannel _pwm;
 
-        public FanController(ILogger<FanController> logger)
+        public FanController()
         {
-            _logger = logger;
             _pwm = new SoftwarePwmChannel(Pin, 50, 1);
             _pwm.Start();
         }
@@ -32,5 +24,10 @@ namespace BeocreateRemote.Core
             _pwm.Dispose();
         }
 
+    }
+
+    public interface IFanController : IDisposable
+    {
+        public void Set(double speed);
     }
 }

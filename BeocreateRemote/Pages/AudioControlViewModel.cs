@@ -7,7 +7,7 @@ namespace BeocreateRemote.Pages
 {
     public partial class AudioControlViewModel : ObservableObject
     {
-        private static readonly double _increment = 1;
+        private const double Increment = 1;
 
         private readonly ControllerContainer controllerContainer;
 
@@ -58,7 +58,7 @@ namespace BeocreateRemote.Pages
         {
             if (Volume == null) return Task.CompletedTask;
 
-            Volume = (int.Parse(Volume) - _increment).ToString();
+            Volume = (int.Parse(Volume) - Increment).ToString();
             return Task.CompletedTask;
         }
 
@@ -68,7 +68,7 @@ namespace BeocreateRemote.Pages
         {
             if (Volume == null) return Task.CompletedTask; ;
 
-            Volume = (int.Parse(Volume) + _increment).ToString();
+            Volume = (int.Parse(Volume) + Increment).ToString();
             return Task.CompletedTask;
         }
     }
