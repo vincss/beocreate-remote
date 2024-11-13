@@ -18,8 +18,8 @@ namespace BeocreateRemote.Server
             builder.Services.AddSingleton<IFanController>(new FanControllerMock());
 #else            
             builder.Services.AddSingleton<IRemoteController>(new SigmaTcpController("127.0.0.1"));
-            builder.Services.AddSingleton<ITemperatureReader>();
-            builder.Services.AddSingleton<IFanController>();
+            builder.Services.AddSingleton<ITemperatureReader>(new TemperatureReader());
+            builder.Services.AddSingleton<IFanController>(new FanController());
 #endif            
             
             builder.Services.AddSingleton<FanInformation>();

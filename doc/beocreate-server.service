@@ -4,8 +4,10 @@ Description=Beocreate Remote Service
 After=network.target
 
 [Service]
-WorkingDirectory=/home/osmc/beocreate-remote/bin/
-ExecStart=/home/osmc/beocreate-remote/bin/BeocreateRemote.Server
+WorkingDirectory=/root/beocreate-server
+ExecStart=/root/beocreate-server/BeocreateRemote.Server
+Restart=always
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
