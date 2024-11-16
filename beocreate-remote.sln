@@ -19,6 +19,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeocreateRemote.Server", "BeocreateRemote.Server\BeocreateRemote.Server.csproj", "{8D7504FE-975E-4CFE-8DCB-14F0D9B48AE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeocreateRemote.Blazor", "BeocreateRemote.Blazor\BeocreateRemote.Blazor\BeocreateRemote.Blazor.csproj", "{5198E598-8926-4117-9CB9-3EA621447532}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeocreateRemote.Blazor.Shared", "BeocreateRemote.Blazor\BeocreateRemote.Blazor.Shared\BeocreateRemote.Blazor.Shared.csproj", "{DE15E8FF-8207-437D-8419-4103E4792413}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeocreateRemote.Blazor.Web", "BeocreateRemote.Blazor\BeocreateRemote.Blazor.Web\BeocreateRemote.Blazor.Web.csproj", "{36A016B8-3C08-4C38-94A1-F57F94186E7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeocreateRemote.Blazor.Web.Client", "BeocreateRemote.Blazor\BeocreateRemote.Blazor.Web.Client\BeocreateRemote.Blazor.Web.Client.csproj", "{9CEF28F1-9823-44D4-AEAA-249E7126771A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +51,23 @@ Global
 		{8D7504FE-975E-4CFE-8DCB-14F0D9B48AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D7504FE-975E-4CFE-8DCB-14F0D9B48AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D7504FE-975E-4CFE-8DCB-14F0D9B48AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5198E598-8926-4117-9CB9-3EA621447532}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5198E598-8926-4117-9CB9-3EA621447532}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5198E598-8926-4117-9CB9-3EA621447532}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5198E598-8926-4117-9CB9-3EA621447532}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5198E598-8926-4117-9CB9-3EA621447532}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE15E8FF-8207-437D-8419-4103E4792413}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE15E8FF-8207-437D-8419-4103E4792413}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE15E8FF-8207-437D-8419-4103E4792413}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE15E8FF-8207-437D-8419-4103E4792413}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36A016B8-3C08-4C38-94A1-F57F94186E7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A016B8-3C08-4C38-94A1-F57F94186E7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A016B8-3C08-4C38-94A1-F57F94186E7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A016B8-3C08-4C38-94A1-F57F94186E7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CEF28F1-9823-44D4-AEAA-249E7126771A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CEF28F1-9823-44D4-AEAA-249E7126771A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CEF28F1-9823-44D4-AEAA-249E7126771A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CEF28F1-9823-44D4-AEAA-249E7126771A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
