@@ -8,7 +8,7 @@ namespace BeocreateRemote.Core.Test
         public void TestSshController()
         {
             var controller = new SshController("192.168.0.4", "root", "hifiberry");
-            var temp = controller.GetTemperature();
+            var volume = controller.Volume;
         }
 
         [TestMethod]

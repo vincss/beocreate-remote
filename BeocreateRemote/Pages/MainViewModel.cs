@@ -45,9 +45,6 @@ namespace BeocreateRemote.Pages
             {
                 IsTemperatureAvailable = controllerContainer.Controller.GetType() != typeof(SigmaTcpController);
             }
-
-
-            Temperature = controllerContainer.Controller?.GetTemperature() ?? -1;
         }
 
         [RelayCommand]

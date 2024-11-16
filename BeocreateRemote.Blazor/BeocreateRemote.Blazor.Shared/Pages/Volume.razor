@@ -1,0 +1,35 @@
+﻿@using BeocreateRemote.Core
+
+@inject IRemoteController RemoteController
+
+<h3>Volume</h3>
+
+<button class="btn">🔇</button>
+<button class="btn" onclick="VolumeDown">🔉</button>
+<button class="btn" onclick="VolumeUp">🔊</button>
+<label>
+    <input @bind="VolumeValue"/>
+</label>
+<input type="range" min="0" max="100" @bind="VolumeValue"/>
+
+
+@code {
+    private int increment = 1;
+
+    private int VolumeValue
+    {
+        get => RemoteController.Volume;
+        set => RemoteController.Volume = value;
+    }
+
+    private void VolumeUp()
+    {
+        RemoteController.Volume += increment;
+    }
+
+    private void VolumeDown()
+    {
+        RemoteController.Volume -= increment;
+    }
+
+}

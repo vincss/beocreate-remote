@@ -36,13 +36,6 @@ namespace BeocreateRemote.Core
             muted = false;
         }
 
-        public int GetTemperature()
-        {
-            if (!IsConnected) return 0;
-            var result = _sshClient.RunCommand("cat /sys/class/thermal/thermal_zone0/temp");
-            return (int.Parse(result.Result) / 1000);
-        }
-
         public int Volume
         {
             get

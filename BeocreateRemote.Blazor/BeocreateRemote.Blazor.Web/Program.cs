@@ -1,6 +1,8 @@
 using BeocreateRemote.Blazor.Shared.Services;
 using BeocreateRemote.Blazor.Web.Components;
 using BeocreateRemote.Blazor.Web.Services;
+using BeocreateRemote.Core;
+using BeocreateRemote.Core.mock;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +12,9 @@ builder.Services.AddRazorComponents()
 
 // Add device-specific services used by the BeocreateRemote.Blazor.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
+
+builder.Services.AddSingleton<IRemoteController, ControllerMock>();
+
 
 var app = builder.Build();
 

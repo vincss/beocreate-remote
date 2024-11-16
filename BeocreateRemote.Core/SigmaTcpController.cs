@@ -115,12 +115,6 @@ namespace BeocreateRemote.Core
             }
         }
 
-        public int GetTemperature()
-        {
-            return -1000;
-        }
-
-
         private int ReceiveMetaDataAddress()
         {
             var rcvData = new Byte[256];

@@ -1,4 +1,4 @@
-# ToDo
+﻿# ToDo
 
 - Feat
   - free -h ; vmstate ; uptime ; cat /proc/loadavg
@@ -9,6 +9,11 @@
   - https://thewissen.io/making-maui-cd-pipeline/
   - https://blog.taranissoftware.com/build-net-maui-apps-with-github-actions
 
+# Emoji
+🔇 🔈🔉🔊
+
+# Razor
+	- icons : https://icons.getbootstrap.com/ 
 # SigmaTcp
 
 dsptoolkit get-meta volumeControlRegister

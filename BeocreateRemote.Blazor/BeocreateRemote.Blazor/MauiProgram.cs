@@ -1,5 +1,7 @@
 ﻿using BeocreateRemote.Blazor.Services;
 using BeocreateRemote.Blazor.Shared.Services;
+using BeocreateRemote.Core;
+using BeocreateRemote.Core.mock;
 using Microsoft.Extensions.Logging;
 
 namespace BeocreateRemote.Blazor
@@ -18,6 +20,8 @@ namespace BeocreateRemote.Blazor
 
             // Add device-specific services used by the BeocreateRemote.Blazor.Shared project
             builder.Services.AddSingleton<IFormFactor, FormFactor>();
+
+            builder.Services.AddSingleton<IRemoteController, ControllerMock>();
 
             builder.Services.AddMauiBlazorWebView();
 
