@@ -14,8 +14,10 @@ namespace BeocreateRemote.Core.Test
         [TestMethod]
         public async Task TestFanClient()
         {
+            var remoteConfiguration = new RemoteConfiguration() { SigmaTcpAddress = "192.168.0.4", BeocreateRemoteServerAddress = "http://192.168.0.4:5000" };
+
             var httpClient = new HttpClient();
-            var fanClient = new FanClient(httpClient);
+            var fanClient = new FanClient(httpClient, remoteConfiguration);
             var fanInformation = await fanClient.GetFanInformation();
         }
 
