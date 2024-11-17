@@ -11,6 +11,5 @@ public static class ServicesConfiguration
         services.AddSingleton<IRemoteController>(new ControllerMock());
         services.AddSingleton<HttpClient>();
         services.AddSingleton<FanClient>();
-
     }
 }
