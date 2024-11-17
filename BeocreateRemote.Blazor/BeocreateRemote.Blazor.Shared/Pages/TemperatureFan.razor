@@ -1,0 +1,38 @@
+@using BeocreateRemote.Core
+
+@inject FanClient FanClient
+
+<h4>Temperature/Fan</h4>
+
+<div>
+    <label>@Temperature °c - @Speed %</label>
+</div>
+
+@code {
+    private string Temperature { get; set; } = "0";
+    private string Speed { get; set; } = "0";
+    private const int TimerIntervalSeconds = 2;
+    private Timer? timer;
+
+    protected override Task OnInitializedAsync()
+    {
+        timer = new Timer(DoWork, null, TimeSpan.Zero,
+            TimeSpan.FromSeconds(TimerIntervalSeconds));
+
+        return Task.CompletedTask;
+    }
+
+    private async void DoWork(object? state)
+    {
+        var fanInformation = await FanClient.GetFanInformation();
+        Console.WriteLine($"Coucou {fanInformation?.Temperature} {fanInformation?.Speed}");
+
+        if (fanInformation != null)
+        {
+            Temperature = fanInformation.Temperature.ToString();
+            Speed = fanInformation.Speed.ToString();
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
+}

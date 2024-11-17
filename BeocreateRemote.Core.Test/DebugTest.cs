@@ -10,6 +10,14 @@ namespace BeocreateRemote.Core.Test
             var controller = new SshController("192.168.0.4", "root", "hifiberry");
             var volume = controller.Volume;
         }
+        
+        [TestMethod]
+        public async Task TestFanClient()
+        {
+            var httpClient = new HttpClient();
+            var fanClient = new FanClient(httpClient);
+            var fanInformation = await fanClient.GetFanInformation();
+        }
 
         [TestMethod]
         public void TestSigmaController()

@@ -10,11 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddCors(o =>
+    o.AddPolicy("AllowCors", configure => { configure.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); }));
+
 // Add device-specific services used by the BeocreateRemote.Blazor.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
-builder.Services.AddSingleton<IRemoteController, ControllerMock>();
-
+builder.Services.AddSingleton<IRemoteController>(new ControllerMock());
+builder.Services.AddSingleton<HttpClient>();
+builder.Services.AddSingleton<FanClient>();
 
 var app = builder.Build();
 
@@ -27,6 +31,8 @@ else
 {
     app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
+
+app.UseCors("AllowCors");
 
 app.UseStaticFiles();
 app.UseAntiforgery();

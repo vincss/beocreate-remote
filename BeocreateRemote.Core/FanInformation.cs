@@ -1,4 +1,4 @@
-namespace BeocreateRemote.Server.Services;
+namespace BeocreateRemote.Core;
 
 public class FanInformation
 {

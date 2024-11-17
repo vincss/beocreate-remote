@@ -2,13 +2,13 @@
 
 @inject IRemoteController RemoteController
 
-<h3>Volume</h3>
+<h4>Volume</h4>
 
-<button class="btn">🔇</button>
-<button class="btn" onclick="VolumeDown">🔉</button>
-<button class="btn" onclick="VolumeUp">🔊</button>
+<button class="btn" @onclick="ToggleMute">@MuteDisplay</button>
+<button class="btn" @onclick="VolumeDown">🔉</button>
+<button class="btn" @onclick="VolumeUp">🔊</button>
 <label>
-    <input @bind="VolumeValue"/>
+    @VolumeDisplay
 </label>
 <input type="range" min="0" max="100" @bind="VolumeValue"/>
 
@@ -22,6 +22,10 @@
         set => RemoteController.Volume = value;
     }
 
+    private string VolumeDisplay => RemoteController.Mute ? "🔇": $"{VolumeValue} %";
+
+    private string MuteDisplay => RemoteController.Mute ? "🔈" : "🔇";
+
     private void VolumeUp()
     {
         RemoteController.Volume += increment;
@@ -30,6 +34,11 @@
     private void VolumeDown()
     {
         RemoteController.Volume -= increment;
+    }
+
+    private void ToggleMute()
+    {
+        RemoteController.Mute = !RemoteController.Mute;
     }
 
 }
