@@ -2,14 +2,13 @@ using System.Net.Http.Json;
 
 namespace BeocreateRemote.Core;
 
-public class FanClient(HttpClient httpClient)
+public class FanClient(HttpClient httpClient, Configuration configuration)
 {
     public async Task<FanInformation?> GetFanInformation()
     {
-
         try
         {
-            return await httpClient.GetFromJsonAsync<FanInformation>("http://192.168.0.17:5000/fan");
+            return await httpClient.GetFromJsonAsync<FanInformation>($"{configuration.BeocreateRemoteServerAddress}/fan");
         }
         catch (Exception ex)
         {
