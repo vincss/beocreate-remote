@@ -16,9 +16,7 @@ builder.Services.AddCors(o =>
 // Add device-specific services used by the BeocreateRemote.Blazor.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
-builder.Services.AddSingleton<IRemoteController>(new ControllerMock());
-builder.Services.AddSingleton<HttpClient>();
-builder.Services.AddSingleton<FanClient>();
+builder.Services.AddBeocreateServices();
 
 var app = builder.Build();
 

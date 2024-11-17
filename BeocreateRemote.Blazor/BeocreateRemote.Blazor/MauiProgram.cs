@@ -21,7 +21,7 @@ namespace BeocreateRemote.Blazor
             // Add device-specific services used by the BeocreateRemote.Blazor.Shared project
             builder.Services.AddSingleton<IFormFactor, FormFactor>();
 
-            builder.Services.AddSingleton<IRemoteController, ControllerMock>();
+            builder.Services.AddBeocreateServices();
 
             builder.Services.AddMauiBlazorWebView();
 
