@@ -2,6 +2,6 @@ namespace BeocreateRemote.Core;
 
 public class RemoteConfiguration
 {
-    public string SigmaTcpAddress { get; set; }
-    public string BeocreateRemoteServerAddress { get; set; }
+    public required string SigmaTcpAddress { get; set; }
+    public required string BeocreateRemoteServerAddress { get; set; }
 }
