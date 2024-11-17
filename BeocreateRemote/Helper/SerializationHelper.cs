@@ -24,12 +24,12 @@ namespace BeocreateRemote.Helper
             }
         }
 
-        public static T DeserializeJson<T>(this string toDeserialize, JsonSerializerOptions options = null)
+        public static T DeserializeJson<T>(this string toDeserialize, JsonSerializerOptions? options = null)
         {
             return JsonSerializer.Deserialize<T>(toDeserialize, options);
         }
 
-        public static string SerializeJson<T>(this T toSerialize, JsonSerializerOptions options = null)
+        public static string SerializeJson<T>(this T toSerialize, JsonSerializerOptions? options = null)
         {
             return JsonSerializer.Serialize<T>(toSerialize, options);
         }

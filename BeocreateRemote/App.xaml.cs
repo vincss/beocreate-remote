@@ -37,7 +37,7 @@ namespace BeocreateRemote
                     }
                     else
                     {
-                        await Current.MainPage.DisplayAlert("Failed", "Failed to connect to the server.", "Ok");
+                        await Current?.MainPage?.DisplayAlert("Failed", "Failed to connect to the server.", "Ok");
                         await Shell.Current.GoToAsync(nameof(ConfigurationPage));
                     }
                 }
@@ -49,7 +49,7 @@ namespace BeocreateRemote
             }
         }
 
-        protected override Window CreateWindow(IActivationState activationState)
+        protected override Window CreateWindow(IActivationState? activationState)
         {
             Window window = base.CreateWindow(activationState);
             window.Created += (sender, eventArgs) =>

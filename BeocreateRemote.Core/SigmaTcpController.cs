@@ -180,8 +180,8 @@ namespace BeocreateRemote.Core
             GetStream().Write(data, 0, HeaderSize);
 
             var rcvData = new byte[HeaderSize + decimalLength];
-            GetStream().Read(rcvData, 0, rcvData.Length);
-            var bytesToParse = rcvData[new Range(HeaderSize, rcvData.Length)];
+            var read = GetStream().Read(rcvData, 0, rcvData.Length);
+            var bytesToParse = rcvData[new Range(HeaderSize, read)];
             return bytesToParse;
         }
 
