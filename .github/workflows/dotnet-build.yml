@@ -72,27 +72,45 @@ jobs:
       - name: Install .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 9.0.x
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v2
 
+      # Build Android 
+      # - name: Install MAUI Workload
+      #   run: dotnet workload install maui --ignore-failed-sources
+
+      # - name: Restore Dependencies
+      #   run: dotnet restore BeocreateRemote/BeocreateRemote.csproj
+
+      # - name: Build MAUI Android
+      #   run: dotnet publish BeocreateRemote/BeocreateRemote.csproj -c Release -f net8.0-android34.0 --no-restore
+
+      # - name: Upload Android Artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: android-ci-build
+      #     path: BeocreateRemote/bin/Release/net8.0-android34.0/*Signed.apk
+
+      
       # Build Android
       - name: Install MAUI Workload
         run: dotnet workload install maui --ignore-failed-sources
 
       - name: Restore Dependencies
-        run: dotnet restore BeocreateRemote/BeocreateRemote.csproj
+        run: dotnet restore BeocreateRemote.Blazor/BeocreateRemote.Blazor/BeocreateRemote.Blazor.csproj
 
       - name: Build MAUI Android
-        run: dotnet publish BeocreateRemote/BeocreateRemote.csproj -c Release -f net8.0-android34.0 --no-restore
+        run: dotnet publish BeocreateRemote.Blazor/BeocreateRemote.Blazor/BeocreateRemote.Blazor.csproj -c Release -f net9.0-android35.0 --no-restore
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v4
         with:
           name: android-ci-build
-          path: BeocreateRemote/bin/Release/net8.0-android34.0/*Signed.apk
+          path: BeocreateRemote.Blazor/BeocreateRemote.Blazor/bin/Release/net9.0-android35.0/*Signed.apk
+
 
       # Build Server
       - name: Build Server
