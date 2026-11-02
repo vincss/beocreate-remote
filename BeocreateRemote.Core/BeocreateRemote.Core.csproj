@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Iot.Device.Bindings" Version="3.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.14" />
     <PackageReference Include="SSH.NET" Version="2024.2.0" />
     <PackageReference Include="System.Device.Gpio" Version="3.2.0" />
-    <PackageReference Include="System.Net.Http.Json" Version="9.0.0" />
-    <PackageReference Include="System.Text.Json" Version="9.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="10.0.14" />
+    <PackageReference Include="System.Text.Json" Version="10.0.14" />
     <PackageReference Include="ThrottleDebounce" Version="2.0.0" />
   </ItemGroup>
 
