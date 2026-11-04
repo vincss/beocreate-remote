@@ -72,7 +72,7 @@ jobs:
       - name: Install .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: 10.0.x
 
       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
       - name: Setup MSBuild.exe
@@ -86,13 +86,13 @@ jobs:
       #   run: dotnet restore BeocreateRemote/BeocreateRemote.csproj
 
       # - name: Build MAUI Android
-      #   run: dotnet publish BeocreateRemote/BeocreateRemote.csproj -c Release -f net9.0-android35.0 --no-restore
+      #   run: dotnet publish BeocreateRemote/BeocreateRemote.csproj -c Release -f net10.0-android36.0 --no-restore
 
       # - name: Upload Android Artifact
       #   uses: actions/upload-artifact@v4
       #   with:
       #     name: android-ci-build
-      #     path: BeocreateRemote/bin/Release/net9.0-android35.0/*Signed.apk
+      #     path: BeocreateRemote/bin/Release/net10.0-android36.0/*Signed.apk
 
       
       # Build Android Blazor
@@ -100,13 +100,13 @@ jobs:
         run: dotnet restore BeocreateRemote.Blazor/BeocreateRemote.Blazor/BeocreateRemote.Blazor.csproj
 
       - name: Build MAUI Android
-        run: dotnet publish BeocreateRemote.Blazor/BeocreateRemote.Blazor/BeocreateRemote.Blazor.csproj -c Release -f net9.0-android35.0 --no-restore
+        run: dotnet publish BeocreateRemote.Blazor/BeocreateRemote.Blazor/BeocreateRemote.Blazor.csproj -c Release -f net10.0-android36.0 --no-restore
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v4
         with:
           name: android-ci-build
-          path: BeocreateRemote.Blazor/BeocreateRemote.Blazor/bin/Release/net9.0-android35.0/*Signed.apk
+          path: BeocreateRemote.Blazor/BeocreateRemote.Blazor/bin/Release/net10.0-android36.0/*Signed.apk
 
 
       # Build Server
@@ -117,7 +117,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: server-ci-build
-          path: BeocreateRemote.Server/bin/Release/net9.0/linux-arm64/publish/
+          path: BeocreateRemote.Server/bin/Release/net10.0/linux-arm64/publish/
 
       # Execute all unit tests in the solution
       - name: Execute unit tests

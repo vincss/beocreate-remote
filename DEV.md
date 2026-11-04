@@ -26,7 +26,7 @@ dsptoolkit read-hex 106
 
 # Info
 
-dotnet build -c Release -f net8.0-android34.0 --force
+dotnet build -c Release -f net10.0-android36.0 --force
 
 # dotnet publish -c Release --runtime linux-arm64 --self-contained /p:PublishSingleFile=true
 
